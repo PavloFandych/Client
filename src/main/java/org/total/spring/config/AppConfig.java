@@ -4,7 +4,6 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.total.spring.dao.ResultDAO;
 
 import javax.sql.DataSource;
 
@@ -17,7 +16,7 @@ public class AppConfig {
             dataSource.setDriverClass("com.mysql.jdbc.Driver");
             dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/GoalDB");
             dataSource.setUser("root");
-            dataSource.setPassword("");
+            dataSource.setPassword("mysqlpass");
             dataSource.setInitialPoolSize(5);
             dataSource.setMaxPoolSize(50);
             dataSource.setMinPoolSize(10);
@@ -33,12 +32,5 @@ public class AppConfig {
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         jdbcTemplate.setDataSource(getDataSource());
         return jdbcTemplate;
-    }
-
-    @Bean
-    public ResultDAO resultDAO() {
-        ResultDAO resultDAO = new ResultDAO();
-        resultDAO.setJdbcTemplate(jdbcTemplate());
-        return resultDAO;
     }
 }

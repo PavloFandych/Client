@@ -3,31 +3,24 @@ package org.total.spring.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * Created by kostya on 10/15/16.
- */
-
-
 public class Result implements Serializable {
     private long resultId;
-    private String resultCode;
-    private Tournament tournament;
-    private Season season;
-    private byte matchDay;
-    private Team hostTeam;
-    private Team guestTeam;
-    private byte goalsByHost;
-    private byte goalsByGuest;
     private Date date;
+    private int goalsByGuest;
+    private int goalsByHost;
+    private int matchDay;
+    private String resultCode;
+    private long guestTeamId;
+    private long hostTeamId;
+    private long seasonId;
+    private long tournamentId;
 
     public Result() {
     }
 
-    public Result(Team hostTeam, Team guestTeam, byte goalsByHost, byte goalsByGuest) {
-        this.hostTeam = hostTeam;
-        this.guestTeam = guestTeam;
-        this.goalsByHost = goalsByHost;
-        this.goalsByGuest = goalsByGuest;
+    public Result(Date date, String resultCode) {
+        this.date = date;
+        this.resultCode = resultCode;
     }
 
     public long getResultId() {
@@ -38,70 +31,6 @@ public class Result implements Serializable {
         this.resultId = resultId;
     }
 
-    public String getResultCode() {
-        return resultCode;
-    }
-
-    public void setResultCode(String resultCode) {
-        this.resultCode = resultCode;
-    }
-
-    public Tournament getTournament() {
-        return tournament;
-    }
-
-    public void setTournament(Tournament tournament) {
-        this.tournament = tournament;
-    }
-
-    public Season getSeason() {
-        return season;
-    }
-
-    public void setSeason(Season season) {
-        this.season = season;
-    }
-
-    public byte getMatchDay() {
-        return matchDay;
-    }
-
-    public void setMatchDay(byte matchDay) {
-        this.matchDay = matchDay;
-    }
-
-    public Team getHostTeam() {
-        return hostTeam;
-    }
-
-    public void setHostTeam(Team hostTeam) {
-        this.hostTeam = hostTeam;
-    }
-
-    public Team getGuestTeam() {
-        return guestTeam;
-    }
-
-    public void setGuestTeam(Team guestTeam) {
-        this.guestTeam = guestTeam;
-    }
-
-    public byte getGoalsByHost() {
-        return goalsByHost;
-    }
-
-    public void setGoalsByHost(byte goalsByHost) {
-        this.goalsByHost = goalsByHost;
-    }
-
-    public byte getGoalsByGuest() {
-        return goalsByGuest;
-    }
-
-    public void setGoalsByGuest(byte goalsByGuest) {
-        this.goalsByGuest = goalsByGuest;
-    }
-
     public Date getDate() {
         return date;
     }
@@ -110,36 +39,68 @@ public class Result implements Serializable {
         this.date = date;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Result result = (Result) o;
-
-        if ((resultId != result.resultId)
-                || (!resultCode.equals(result.resultCode))
-                || (!tournament.equals(result.tournament))
-                || (!season.equals(result.season))
-                || (matchDay != result.matchDay)
-                || (!hostTeam.equals(result.hostTeam))
-                || (!guestTeam.equals(result.guestTeam))
-                || (goalsByHost != result.goalsByHost)
-                || (goalsByGuest != result.goalsByGuest)
-                || (!date.equals(result.date))
-                ) return false;
-
-        return true;
+    public int getGoalsByGuest() {
+        return goalsByGuest;
     }
 
-    @Override
-    public int hashCode() {
-        int result = (int) (resultId ^ (resultId >>> 32));
-        result = 31 * result + resultCode.hashCode();
-        result = 31 * result + hostTeam.hashCode();
-        result = 31 * result + guestTeam.hashCode();
-        result = 31 * result + date.hashCode();
-        return result;
+    public void setGoalsByGuest(int goalsByGuest) {
+        this.goalsByGuest = goalsByGuest;
+    }
+
+    public int getGoalsByHost() {
+        return goalsByHost;
+    }
+
+    public void setGoalsByHost(int goalsByHost) {
+        this.goalsByHost = goalsByHost;
+    }
+
+    public int getMatchDay() {
+        return matchDay;
+    }
+
+    public void setMatchDay(int matchDay) {
+        this.matchDay = matchDay;
+    }
+
+    public String getResultCode() {
+        return resultCode;
+    }
+
+    public void setResultCode(String resultCode) {
+        this.resultCode = resultCode;
+    }
+
+    public Long getGuestTeamId() {
+        return guestTeamId;
+    }
+
+    public void setGuestTeamId(Long guestTeamId) {
+        this.guestTeamId = guestTeamId;
+    }
+
+    public Long getHostTeamId() {
+        return hostTeamId;
+    }
+
+    public void setHostTeamId(Long hostTeamId) {
+        this.hostTeamId = hostTeamId;
+    }
+
+    public Long getSeasonId() {
+        return seasonId;
+    }
+
+    public void setSeasonId(Long seasonId) {
+        this.seasonId = seasonId;
+    }
+
+    public Long getTournamentId() {
+        return tournamentId;
+    }
+
+    public void setTournamentId(Long tournamentId) {
+        this.tournamentId = tournamentId;
     }
 
     public String calcScore() {
@@ -149,13 +110,16 @@ public class Result implements Serializable {
     @Override
     public String toString() {
         return "Result{" +
-                "goalsByHost=" + goalsByHost +
-                ", goalsByGuest=" + goalsByGuest +
-                ", resultId=" + resultId +
-                ", resultCode='" + resultCode + '\'' +
+                "resultId=" + resultId +
                 ", date=" + date +
-                ", hostTeam=" + hostTeam +
-                ", guestTeam=" + guestTeam +
+                ", goalsByGuest=" + goalsByGuest +
+                ", goalsByHost=" + goalsByHost +
+                ", matchDay=" + matchDay +
+                ", resultCode='" + resultCode + '\'' +
+                ", guestTeamId=" + guestTeamId +
+                ", hostTeamId=" + hostTeamId +
+                ", seasonId=" + seasonId +
+                ", tournamentId=" + tournamentId +
                 '}';
     }
 }

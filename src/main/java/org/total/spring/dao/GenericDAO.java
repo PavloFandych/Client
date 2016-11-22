@@ -1,15 +1,13 @@
 package org.total.spring.dao;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-
-/**
- * Created by total on 11/4/16.
- */
 
 public abstract class GenericDAO<T> {
     protected static final Logger LOGGER = Logger.getLogger(GenericDAO.class);
 
+    @Autowired
     private JdbcTemplate jdbcTemplate;
 
     public JdbcTemplate getJdbcTemplate() {
