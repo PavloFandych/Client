@@ -26,5 +26,8 @@
         <module name="Client" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Client" target="1.7" />
+    </bytecodeTargetLevel>
   </component>
 </project>
