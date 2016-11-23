@@ -6,9 +6,9 @@ import java.util.Date;
 public class Result implements Serializable {
     private long resultId;
     private Date date;
-    private int goalsByGuest;
-    private int goalsByHost;
-    private int matchDay;
+    private long goalsByGuest;
+    private long goalsByHost;
+    private long matchDay;
     private String resultCode;
     private long guestTeamId;
     private long hostTeamId;
@@ -39,27 +39,27 @@ public class Result implements Serializable {
         this.date = date;
     }
 
-    public int getGoalsByGuest() {
+    public long getGoalsByGuest() {
         return goalsByGuest;
     }
 
-    public void setGoalsByGuest(int goalsByGuest) {
+    public void setGoalsByGuest(long goalsByGuest) {
         this.goalsByGuest = goalsByGuest;
     }
 
-    public int getGoalsByHost() {
+    public long getGoalsByHost() {
         return goalsByHost;
     }
 
-    public void setGoalsByHost(int goalsByHost) {
+    public void setGoalsByHost(long goalsByHost) {
         this.goalsByHost = goalsByHost;
     }
 
-    public int getMatchDay() {
+    public long getMatchDay() {
         return matchDay;
     }
 
-    public void setMatchDay(int matchDay) {
+    public void setMatchDay(long matchDay) {
         this.matchDay = matchDay;
     }
 
@@ -71,40 +71,36 @@ public class Result implements Serializable {
         this.resultCode = resultCode;
     }
 
-    public Long getGuestTeamId() {
+    public long getGuestTeamId() {
         return guestTeamId;
     }
 
-    public void setGuestTeamId(Long guestTeamId) {
+    public void setGuestTeamId(long guestTeamId) {
         this.guestTeamId = guestTeamId;
     }
 
-    public Long getHostTeamId() {
+    public long getHostTeamId() {
         return hostTeamId;
     }
 
-    public void setHostTeamId(Long hostTeamId) {
+    public void setHostTeamId(long hostTeamId) {
         this.hostTeamId = hostTeamId;
     }
 
-    public Long getSeasonId() {
+    public long getSeasonId() {
         return seasonId;
     }
 
-    public void setSeasonId(Long seasonId) {
+    public void setSeasonId(long seasonId) {
         this.seasonId = seasonId;
     }
 
-    public Long getTournamentId() {
+    public long getTournamentId() {
         return tournamentId;
     }
 
-    public void setTournamentId(Long tournamentId) {
+    public void setTournamentId(long tournamentId) {
         this.tournamentId = tournamentId;
-    }
-
-    public String calcScore() {
-        return goalsByHost + ":" + goalsByGuest;
     }
 
     @Override

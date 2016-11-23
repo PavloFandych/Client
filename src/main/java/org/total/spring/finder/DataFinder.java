@@ -3,7 +3,7 @@ package org.total.spring.finder;
 import org.apache.log4j.Logger;
 import org.total.spring.entity.Result;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * Created by total on 11/2/16.
@@ -14,5 +14,5 @@ public abstract class DataFinder {
 
     protected abstract String getUrl();
 
-    public abstract Set<Result> findResults();
+    public abstract List<Result> findResults();
 }

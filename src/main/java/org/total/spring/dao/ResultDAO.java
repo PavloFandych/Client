@@ -1,41 +1,50 @@
 package org.total.spring.dao;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 import org.total.spring.entity.Result;
 import org.total.spring.util.Constants;
-import org.total.spring.util.ResultSet;
 
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 
 @Repository("resultDAO")
 public class ResultDAO extends GenericDAO<Result> {
-    @Autowired
-    private ResultSet resultSet;
+    public List<Result> results() {
+        SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(getJdbcTemplate())
+                .withProcedureName(Constants.CALL_FETCH_ALL_RESULTS_SQL)
+                .returningResultSet("results", new RowMapper<Result>() {
+                    @Override
+                    public Result mapRow(java.sql.ResultSet resultSet, int i) throws SQLException {
+                        Result result = new Result();
 
-    public ResultSet getResultSet() {
-        return resultSet;
-    }
+                        try {
+                            result.setResultId(resultSet.getLong("resultId"));
+                            result.setDate(
+                                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH)
+                                            .parse(resultSet.getString("date")));
+                            result.setGoalsByGuest(resultSet.getLong("goalsByGuest"));
+                            result.setGoalsByHost(resultSet.getLong("goalsByHost"));
+                            result.setMatchDay(resultSet.getLong("matchDay"));
+                            result.setResultCode(resultSet.getString("resultCode"));
+                            result.setGuestTeamId(resultSet.getLong("guestTeamId"));
+                            result.setHostTeamId(resultSet.getLong("hostTeamId"));
+                            result.setSeasonId(resultSet.getLong("seasonId"));
+                            result.setTournamentId(resultSet.getLong("tournamentId"));
+                        } catch (ParseException e) {
+                        }
+                        return result;
+                    }
+                });
 
-    public void setResultSet(ResultSet resultSet) {
-        this.resultSet = resultSet;
-    }
+        Map<String, Object> out = simpleJdbcCall
+                .execute();
 
-    public Set<Result> results() {
-        Set<Result> set = getResultSet().getResults();
-
-        List<Map<String, Object>> rows = getJdbcTemplate().queryForList(Constants.FETCH_ALL_RESULTS_SQL);
-
-        for (Map<String, Object> row : rows) {
-            Result result = new Result();
-            result.setResultId((long) row.get("resultId"));
-            result.setGoalsByGuest((int) row.get("goalsByGuest"));
-            result.setGoalsByHost((int) row.get("goalsByHost"));
-            result.setMatchDay((int) row.get("matchDay"));
-            set.add(result);
-        }
-        return set;
+        return (List<Result>) out.get("results");
     }
 }
