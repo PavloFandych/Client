@@ -11,6 +11,7 @@ import org.total.spring.entity.Team;
 import org.total.spring.entity.enums.Protocol;
 import org.total.spring.http.HttpExecutor;
 import org.total.spring.util.Constants;
+import org.total.spring.util.SeasonMapper;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -24,12 +25,23 @@ public class DataFinderBundesLiga1 extends DataFinder {
     @Autowired
     private TeamDAO teamDAO;
 
+    @Autowired
+    private SeasonMapper seasonMapper;
+
     public TeamDAO getTeamDAO() {
         return teamDAO;
     }
 
     public void setTeamDAO(TeamDAO teamDAO) {
         this.teamDAO = teamDAO;
+    }
+
+    public SeasonMapper getSeasonMapper() {
+        return seasonMapper;
+    }
+
+    public void setSeasonMapper(SeasonMapper seasonMapper) {
+        this.seasonMapper = seasonMapper;
     }
 
     @Override
@@ -58,19 +70,38 @@ public class DataFinderBundesLiga1 extends DataFinder {
                 Team homeTeam = getTeamDAO().findByTeamName((String) item.get("homeTeamName"));
                 Team awayTeam = getTeamDAO().findByTeamName((String) item.get("awayTeamName"));
 
-                if (result.get("goalsHomeTeam") != null
+                if (item.get("date") != null
+                        && result.get("goalsHomeTeam") != null
                         && result.get("goalsAwayTeam") != null
+                        && item.get("matchday") != null
                         && homeTeam != null
                         && awayTeam != null) {
-                    Result resultToSave = new Result();
-                    resultToSave.setDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
-                            Locale.ENGLISH).parse(((String) item.get("date")).replace('T', ' ')));
-                    resultToSave.setGoalsByGuest((long) result.get("goalsAwayTeam"));
-                    resultToSave.setGoalsByHost((long) result.get("goalsHomeTeam"));
-                    resultToSave.setMatchDay((long) item.get("matchday"));
-                    resultToSave.setGuestTeamId(awayTeam.getTeamId());
-                    resultToSave.setHostTeamId(homeTeam.getTeamId());
-                    results.add(resultToSave);
+                    Result targetResult = new Result();
+
+                    String dateString = ((String) item.get("date")).replace('T', ' ');
+                    Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
+                            Locale.ENGLISH).parse(dateString);
+                    targetResult.setDate(date);
+                    targetResult.setGoalsByGuest((long) result.get("goalsAwayTeam"));
+                    targetResult.setGoalsByHost((long) result.get("goalsHomeTeam"));
+                    targetResult.setMatchDay((long) item.get("matchday"));
+
+                    String[] arrayOne = dateString.split(" ");
+                    String[] arrayTwo = arrayOne[0].split("-");
+                    StringBuilder builder = new StringBuilder();
+                    builder.append(arrayTwo[2])
+                            .append(arrayTwo[1])
+                            .append(arrayTwo[0])
+                            .append(homeTeam.getTeamCode())
+                            .append(awayTeam.getTeamCode())
+                            .append("XXX");
+                    targetResult.setResultCode(builder.toString());
+                    targetResult.setGuestTeamId(awayTeam.getTeamId());
+                    targetResult.setHostTeamId(homeTeam.getTeamId());
+                    targetResult.setSeasonId(getSeasonMapper().mapSeason(date));
+                    targetResult.setTournamentId(1L);
+
+                    results.add(targetResult);
                 }
             }
         } catch (Exception e) {

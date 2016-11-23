@@ -48,7 +48,7 @@ public class TeamDAO extends GenericDAO<Team> {
                         @Override
                         public Team mapRow(ResultSet resultSet, int i) throws SQLException {
                             Team team = new Team();
-                            team.setTeamId(resultSet.getLong("teamID"));
+                            team.setTeamId(resultSet.getLong("teamId"));
                             team.setTeamCode(resultSet.getString("teamCode"));
                             team.setTeamName(resultSet.getString("teamName"));
                             team.setCityId(resultSet.getLong("cityId"));
@@ -60,7 +60,7 @@ public class TeamDAO extends GenericDAO<Team> {
                     .execute(new MapSqlParameterSource()
                             .addValue("teamId", GERMANY_TEAMS_MAPPING.get(teamName)));
 
-            return ((List<Team>) out.get("team")  ).get(0);
+            return ((List<Team>) out.get("team")).get(0);
         }
         return null;
     }

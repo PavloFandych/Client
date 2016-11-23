@@ -104,6 +104,26 @@ public class Result implements Serializable {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Result result = (Result) o;
+
+        if (goalsByGuest != result.goalsByGuest) return false;
+        if (goalsByHost != result.goalsByHost) return false;
+        if (guestTeamId != result.guestTeamId) return false;
+        if (hostTeamId != result.hostTeamId) return false;
+        if (matchDay != result.matchDay) return false;
+        if (seasonId != result.seasonId) return false;
+        if (tournamentId != result.tournamentId) return false;
+        if (!date.equals(result.date)) return false;
+        if (!resultCode.equals(result.resultCode)) return false;
+
+        return true;
+    }
+
+    @Override
     public String toString() {
         return "Result{" +
                 "resultId=" + resultId +

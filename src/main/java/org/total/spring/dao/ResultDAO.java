@@ -47,4 +47,8 @@ public class ResultDAO extends GenericDAO<Result> {
 
         return (List<Result>) out.get("results");
     }
+
+    public void insertResult(final Result result) {
+        LOGGER.info("saving..." + result);
+    }
 }
