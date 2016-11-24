@@ -5,14 +5,13 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.total.spring.dao.GenericDAO;
 import org.total.spring.entity.Result;
 import org.total.spring.entity.Team;
 import org.total.spring.http.HttpExecutor;
 import org.total.spring.util.SeasonMapper;
 
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by total on 11/2/16.
