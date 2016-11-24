@@ -117,7 +117,6 @@ public class Result implements Serializable {
         if (matchDay != result.matchDay) return false;
         if (seasonId != result.seasonId) return false;
         if (tournamentId != result.tournamentId) return false;
-        if (!date.equals(result.date)) return false;
         if (!resultCode.equals(result.resultCode)) return false;
 
         return true;

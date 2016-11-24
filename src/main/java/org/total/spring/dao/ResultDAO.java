@@ -9,12 +9,13 @@ import org.total.spring.util.Constants;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 @Repository("resultDAO")
-public class ResultDAO extends GenericDAO<Result> {
+public class ResultDAO extends GenericDAO {
     public List<Result> results() {
         SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(getJdbcTemplate())
                 .withProcedureName(Constants.CALL_FETCH_ALL_RESULTS_SQL)
@@ -50,5 +51,16 @@ public class ResultDAO extends GenericDAO<Result> {
 
     public void insertResult(final Result result) {
         LOGGER.info("saving..." + result);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(result.getDate());
+        getJdbcTemplate().update(Constants.INSERT_RESULT, new Object[]{calendar,
+                result.getGoalsByGuest(),
+                result.getGoalsByHost(),
+                result.getMatchDay(),
+                result.getResultCode(),
+                result.getGuestTeamId(),
+                result.getHostTeamId(),
+                result.getSeasonId(),
+                result.getTournamentId()});
     }
 }

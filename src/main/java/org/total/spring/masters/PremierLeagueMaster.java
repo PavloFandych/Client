@@ -1,6 +1,5 @@
 package org.total.spring.masters;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.total.spring.dao.ResultDAO;
@@ -10,23 +9,23 @@ import org.total.spring.finder.DataFinder;
 import java.util.List;
 
 /**
- * Created by total on 11/23/16.
+ * Created by pavlo.fandych on 11/24/2016.
  */
 
-@Component("bundesLigaMaster")
-public class BundesLigaMaster implements Master {
+@Component("premierLeagueMaster")
+public class PremierLeagueMaster implements Master {
     @Autowired
-    private DataFinder dataFinderBundesLiga1;
+    private DataFinder dataFinderEnglishPremierLeague;
 
     @Autowired
     private ResultDAO resultDAO;
 
-    public DataFinder getDataFinderBundesLiga1() {
-        return dataFinderBundesLiga1;
+    public DataFinder getDataFinderEnglishPremierLeague() {
+        return dataFinderEnglishPremierLeague;
     }
 
-    public void setDataFinderBundesLiga1(DataFinder dataFinderBundesLiga1) {
-        this.dataFinderBundesLiga1 = dataFinderBundesLiga1;
+    public void setDataFinderEnglishPremierLeague(DataFinder dataFinderEnglishPremierLeague) {
+        this.dataFinderEnglishPremierLeague = dataFinderEnglishPremierLeague;
     }
 
     public ResultDAO getResultDAO() {
@@ -40,7 +39,7 @@ public class BundesLigaMaster implements Master {
     @Override
     public void populateResults() {
         List<Result> savedResults = getResultDAO().results();
-        for (Result item : getDataFinderBundesLiga1().findResults()) {
+        for (Result item : getDataFinderEnglishPremierLeague().findResults()) {
             if (!savedResults.contains(item)) {
                 getResultDAO().insertResult(item);
             }

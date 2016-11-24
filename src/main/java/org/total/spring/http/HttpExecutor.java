@@ -1,6 +1,7 @@
 package org.total.spring.http;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
 import org.total.spring.entity.enums.HttpMethod;
 import org.total.spring.verifier.IgnoreCertificatesTrustManager;
 import org.total.spring.verifier.SSLVerifier;
@@ -10,29 +11,14 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Map;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Created by pavlo.fandych on 3/18/2015.
  */
 
+@Component("httpExecutor")
 public class HttpExecutor {
     private static final Logger LOGGER = Logger.getLogger(HttpExecutor.class);
-    private static final Lock SINGLETON_LOCK = new ReentrantLock();
-    private static volatile HttpExecutor singletonRef;
-
-    public static HttpExecutor getInstance() {
-        if (HttpExecutor.singletonRef == null) {
-            try {
-                HttpExecutor.SINGLETON_LOCK.lock();
-                HttpExecutor.singletonRef = new HttpExecutor();
-            } finally {
-                HttpExecutor.SINGLETON_LOCK.unlock();
-            }
-        }
-        return HttpExecutor.singletonRef;
-    }
 
     static {
         TrustManager[] trustAllCerts = new TrustManager[]{

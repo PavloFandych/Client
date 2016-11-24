@@ -3,7 +3,7 @@ package org.total.spring.finder;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.total.spring.dao.GermanTeamDAO;
+import org.total.spring.dao.EnglishTeamDAO;
 import org.total.spring.entity.Result;
 import org.total.spring.entity.Team;
 import org.total.spring.entity.enums.Protocol;
@@ -13,26 +13,26 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- * Created by total on 11/20/16.
+ * Created by pavlo.fandych on 11/24/2016.
  */
 
-@Repository("dataFinderBundesLiga1")
-public class DataFinderBundesLiga1 extends DataFinder {
+@Repository("dataFinderEnglishPremierLeague")
+public class DataFinderEnglishPremierLeague extends DataFinder {
     @Autowired
-    private GermanTeamDAO germanTeamDAO;
+    private EnglishTeamDAO englishTeamDAO;
 
-    public GermanTeamDAO getGermanTeamDAO() {
-        return germanTeamDAO;
+    public EnglishTeamDAO getEnglishTeamDAO() {
+        return englishTeamDAO;
     }
 
-    public void setGermanTeamDAO(GermanTeamDAO germanTeamDAO) {
-        this.germanTeamDAO = germanTeamDAO;
+    public void setEnglishTeamDAO(EnglishTeamDAO englishTeamDAO) {
+        this.englishTeamDAO = englishTeamDAO;
     }
 
     @Override
     protected final String getUrl() {
         return Protocol.HTTP.name()
-                + Constants.API_BUNDESLIGA_1;
+                + Constants.API_ENG_PREM_LEAGUE;
     }
 
     @Override
@@ -45,8 +45,8 @@ public class DataFinderBundesLiga1 extends DataFinder {
                 JSONObject item = iterator.next();
                 JSONObject result = (JSONObject) item.get("result");
 
-                Team homeTeam = getGermanTeamDAO().findByTeamName((String) item.get("homeTeamName"));
-                Team awayTeam = getGermanTeamDAO().findByTeamName((String) item.get("awayTeamName"));
+                Team homeTeam = getEnglishTeamDAO().findByTeamName((String) item.get("homeTeamName"));
+                Team awayTeam = getEnglishTeamDAO().findByTeamName((String) item.get("awayTeamName"));
 
                 if (item.get("date") != null
                         && result.get("goalsHomeTeam") != null
@@ -67,7 +67,7 @@ public class DataFinderBundesLiga1 extends DataFinder {
                     targetResult.setGuestTeamId(awayTeam.getTeamId());
                     targetResult.setHostTeamId(homeTeam.getTeamId());
                     targetResult.setSeasonId(getSeasonMapper().mapSeason(date));
-                    targetResult.setTournamentId(1L);
+                    targetResult.setTournamentId(5L);
 
                     results.add(targetResult);
                 }
