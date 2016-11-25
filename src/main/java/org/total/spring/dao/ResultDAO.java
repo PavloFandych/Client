@@ -49,6 +49,22 @@ public class ResultDAO extends GenericDAO {
         return (List<Result>) out.get("results");
     }
 
+    public Long getResultSize() {
+        SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(getJdbcTemplate())
+                .withProcedureName(Constants.CALL_RESULT_SIZE)
+                .returningResultSet("size", new RowMapper<Long>() {
+                    @Override
+                    public Long mapRow(java.sql.ResultSet resultSet, int i) throws SQLException {
+                        return resultSet.getLong("COUNT(DISTINCT resultCode)");
+                    }
+                });
+
+        Map<String, Object> out = simpleJdbcCall
+                .execute();
+
+        return ((List<Long>) out.get("size")).get(0);
+    }
+
     public void insertResult(final Result result) {
         LOGGER.info("saving..." + result);
         Calendar calendar = Calendar.getInstance();

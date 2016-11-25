@@ -11,8 +11,12 @@ public class ResultsManager {
         ApplicationContext context =
                 new ClassPathXmlApplicationContext(
                         new String[]{"applicationContext.xml"});
-        ((BundesLigaMaster) context.getBean("bundesLigaMaster")).populateResults();
+        BundesLigaMaster bundesLigaMaster = ((BundesLigaMaster) context.getBean("bundesLigaMaster"));
+        bundesLigaMaster.populateResults();
         ((PremierLeagueMaster) context.getBean("premierLeagueMaster")).populateResults();
         ((SerieAMaster) context.getBean("serieAMaster")).populateResults();
+
+        Long size = bundesLigaMaster.getResultDAO().getResultSize();
+        System.out.println(size);
     }
 }
