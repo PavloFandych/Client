@@ -67,7 +67,7 @@ public class DataFinderFrenchLigue1 extends DataFinder {
                     targetResult.setGuestTeamId(awayTeam.getTeamId());
                     targetResult.setHostTeamId(homeTeam.getTeamId());
                     targetResult.setSeasonId(getSeasonMapper().mapSeason(date));
-                    targetResult.setTournamentId(8L);
+                    targetResult.setTournamentId(9L);
 
                     results.add(targetResult);
                 }

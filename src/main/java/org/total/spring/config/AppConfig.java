@@ -16,7 +16,7 @@ public class AppConfig {
             dataSource.setDriverClass("com.mysql.jdbc.Driver");
             dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/GoalDB");
             dataSource.setUser("root");
-            dataSource.setPassword("");
+            dataSource.setPassword("mysqlpass");
             dataSource.setInitialPoolSize(5);
             dataSource.setMaxPoolSize(50);
             dataSource.setMinPoolSize(10);
