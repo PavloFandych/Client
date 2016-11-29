@@ -7,6 +7,7 @@ package org.total.spring.util;
 public interface Constants {
     public static final String CALL_FETCH_ALL_RESULTS_SQL = "getResults";
     public static final String CALL_FETCH_TEAM_BY_TEAM_ID = "getTeamByTeamId";
+    public static final String CALL_FETCH_TEAM_BY_TEAM_CODE = "getTeamByTeamCode";
     public static final String CALL_GET_SEASON_LIST = "getSeasonsList";
     public static final String CALL_RESULT_SIZE = "getResultSize";
 

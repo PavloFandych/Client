@@ -28,10 +28,10 @@ public abstract class GenericDAO {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    protected Team findTeam(final String teamName, final Map<String, Long> mapping) {
+    protected Team findTeam(final String teamName, final Map<String, String> mapping) {
         if (mapping.containsKey(teamName)) {
             SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(getJdbcTemplate())
-                    .withProcedureName(Constants.CALL_FETCH_TEAM_BY_TEAM_ID)
+                    .withProcedureName(Constants.CALL_FETCH_TEAM_BY_TEAM_CODE)
                     .returningResultSet("team", new RowMapper<Team>() {
                         @Override
                         public Team mapRow(ResultSet resultSet, int i) throws SQLException {
@@ -46,7 +46,7 @@ public abstract class GenericDAO {
 
             Map<String, Object> out = simpleJdbcCall
                     .execute(new MapSqlParameterSource()
-                            .addValue("teamId", mapping.get(teamName)));
+                            .addValue("teamCode", mapping.get(teamName)));
 
             return ((List<Team>) out.get("team")).get(0);
         }

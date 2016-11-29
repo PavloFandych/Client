@@ -3,6 +3,7 @@ package org.total.spring.exec;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.total.spring.masters.BundesLigaMaster;
+import org.total.spring.masters.LaLigaMaster;
 import org.total.spring.masters.PremierLeagueMaster;
 import org.total.spring.masters.SerieAMaster;
 
@@ -15,6 +16,9 @@ public class ResultsManager {
         bundesLigaMaster.populateResults();
         ((PremierLeagueMaster) context.getBean("premierLeagueMaster")).populateResults();
         ((SerieAMaster) context.getBean("serieAMaster")).populateResults();
+
+        LaLigaMaster laLigaMaster = (LaLigaMaster) context.getBean("laLigaMaster");
+        laLigaMaster.populateResults();
 
         Long size = bundesLigaMaster.getResultDAO().getResultSize();
         System.out.println(size);
