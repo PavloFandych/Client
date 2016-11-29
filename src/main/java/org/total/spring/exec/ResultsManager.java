@@ -2,10 +2,7 @@ package org.total.spring.exec;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.total.spring.masters.BundesLigaMaster;
-import org.total.spring.masters.LaLigaMaster;
-import org.total.spring.masters.PremierLeagueMaster;
-import org.total.spring.masters.SerieAMaster;
+import org.total.spring.masters.*;
 
 public class ResultsManager {
     public static void main(String[] args) throws Exception {
@@ -19,6 +16,9 @@ public class ResultsManager {
 
         LaLigaMaster laLigaMaster = (LaLigaMaster) context.getBean("laLigaMaster");
         laLigaMaster.populateResults();
+
+        Ligue1Master ligue1Master = (Ligue1Master) context.getBean("ligue1Master");
+        ligue1Master.populateResults();
 
         Long size = bundesLigaMaster.getResultDAO().getResultSize();
         System.out.println(size);

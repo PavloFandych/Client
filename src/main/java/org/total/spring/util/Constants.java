@@ -20,4 +20,5 @@ public interface Constants {
     public static final String API_ENG_PREM_LEAGUE = "://api.football-data.org/v1/soccerseasons/426/fixtures";
     public static final String API_ESP_PRIMERA = "://api.football-data.org/v1/soccerseasons/436/fixtures";
     public static final String API_ITA_SERIA_A = "://api.football-data.org/v1/soccerseasons/438/fixtures";
+    public static final String API_FRA_LIGUE_1 = "://api.football-data.org/v1/soccerseasons/434/fixtures";
 }
