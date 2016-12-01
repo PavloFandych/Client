@@ -35,6 +35,8 @@ public class SeasonDAO extends GenericDAO {
         Map<String, Object> out = simpleJdbcCall
                 .execute();
 
-        return (List<Season>) out.get("seasons");
+        List<Season> resultList = (List<Season>) out.get("seasons");
+
+        return (resultList != null && !resultList.isEmpty()) ? resultList : null;
     }
 }
