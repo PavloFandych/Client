@@ -21,4 +21,9 @@ public interface Constants {
     public static final String API_ESP_PRIMERA = "://api.football-data.org/v1/soccerseasons/436/fixtures";
     public static final String API_ITA_SERIA_A = "://api.football-data.org/v1/soccerseasons/438/fixtures";
     public static final String API_FRA_LIGUE_1 = "://api.football-data.org/v1/soccerseasons/434/fixtures";
+
+    /*URL*/
+    public static final String URL_STANDINGS = "http://localhost:8080/standings";
+
+    public static final String CONTENT_TYPE_APPLICATION_JSON = "application/json";
 }

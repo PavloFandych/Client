@@ -68,6 +68,21 @@ public class SeasonMapper {
 
             SEASONS.put(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2016-07-15 00:00:00"),
                     new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2017-06-01 00:00:00"));
+
+            SEASONS.put(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2017-07-15 00:00:00"),
+                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2018-06-01 00:00:00"));
+
+            SEASONS.put(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2018-07-15 00:00:00"),
+                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2019-06-01 00:00:00"));
+
+            SEASONS.put(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2019-07-15 00:00:00"),
+                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2020-06-01 00:00:00"));
+
+            SEASONS.put(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2020-07-15 00:00:00"),
+                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2021-06-01 00:00:00"));
+
+            SEASONS.put(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2021-07-15 00:00:00"),
+                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2022-06-01 00:00:00"));
         } catch (Exception e) {
         }
     }
