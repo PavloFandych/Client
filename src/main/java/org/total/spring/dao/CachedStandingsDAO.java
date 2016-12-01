@@ -3,7 +3,9 @@ package org.total.spring.dao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.total.spring.entity.Season;
+import org.total.spring.entity.Tournament;
 import org.total.spring.entity.enums.SeasonCode;
+import org.total.spring.entity.enums.TournamentCode;
 import org.total.spring.http.HttpExecutor;
 import org.total.spring.util.Constants;
 import org.total.spring.util.PasswordManager;
@@ -28,6 +30,9 @@ public class CachedStandingsDAO extends GenericDAO {
     @Autowired
     private SeasonDAO seasonDAO;
 
+    @Autowired
+    private TournamentDAO tournamentDAO;
+
     public HttpExecutor getHttpExecutor() {
         return httpExecutor;
     }
@@ -50,6 +55,14 @@ public class CachedStandingsDAO extends GenericDAO {
 
     public void setSeasonDAO(SeasonDAO seasonDAO) {
         this.seasonDAO = seasonDAO;
+    }
+
+    public TournamentDAO getTournamentDAO() {
+        return tournamentDAO;
+    }
+
+    public void setTournamentDAO(TournamentDAO tournamentDAO) {
+        this.tournamentDAO = tournamentDAO;
     }
 
     public void saveStandings(String seasonCode, String tournamentCode) {
@@ -83,6 +96,7 @@ public class CachedStandingsDAO extends GenericDAO {
                 LOGGER.info(getHttpExecutor().executeGet(Constants.URL_STANDINGS, headers, builder.toString()));
 
                 Long seasonId = -1L;
+                Long tournamentId = -1L;
 
                 for (Season item : getSeasonDAO().seasons()) {
                     if (item.getSeasonCode().equals(SeasonCode.valueOf(seasonCode))) {
@@ -91,8 +105,15 @@ public class CachedStandingsDAO extends GenericDAO {
                     }
                 }
 
-                if (seasonId > 0) {
-                    LOGGER.info("SeasonId = " + seasonId);
+                for (Tournament item : getTournamentDAO().tournaments()) {
+                    if (item.getTournamentCode().equals(TournamentCode.valueOf(tournamentCode))) {
+                        tournamentId = item.getTournamentId();
+                        break;
+                    }
+                }
+
+                if (seasonId > 0 && tournamentId > 0) {
+                    LOGGER.info("SeasonId = " + seasonId + " TournamentId = " + tournamentId);
                 }
             } else {
                 LOGGER.error("Invalid input parameters");

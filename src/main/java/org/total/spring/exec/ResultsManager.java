@@ -26,6 +26,7 @@ public class ResultsManager {
         System.out.println(size);
 
         CachedStandingsMaster cachedStandingsMaster = (CachedStandingsMaster) context.getBean("cachedStandingsMaster");
-        cachedStandingsMaster.populateResults("S20152016", "ENG_PREM_LEAGUE");
+//        cachedStandingsMaster.populateResults("S20152016", "ENG_PREM_LEAGUE");
+        cachedStandingsMaster.populateResults("ENG_PREM_LEAGUE");
     }
 }
