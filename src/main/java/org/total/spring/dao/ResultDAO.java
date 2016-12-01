@@ -9,14 +9,11 @@ import org.total.spring.util.Constants;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 @Repository("resultDAO")
 public class ResultDAO extends GenericDAO {
-    public List<Result> results() {
+    public TreeSet<Result> results() {
         SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(getJdbcTemplate())
                 .withProcedureName(Constants.CALL_FETCH_ALL_RESULTS_SQL)
                 .returningResultSet("results", new RowMapper<Result>() {
@@ -46,7 +43,7 @@ public class ResultDAO extends GenericDAO {
         Map<String, Object> out = simpleJdbcCall
                 .execute();
 
-        return (List<Result>) out.get("results");
+        return (new TreeSet<Result>((List<Result>) out.get("results")));
     }
 
     public Long getResultSize() {

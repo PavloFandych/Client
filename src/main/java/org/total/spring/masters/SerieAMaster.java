@@ -6,7 +6,7 @@ import org.total.spring.dao.ResultDAO;
 import org.total.spring.entity.Result;
 import org.total.spring.finder.DataFinder;
 
-import java.util.List;
+import java.util.TreeSet;
 
 /**
  * Created by total on 11/24/16.
@@ -38,7 +38,7 @@ public class SerieAMaster implements Master {
 
     @Override
     public void populateResults() {
-        List<Result> savedResults = getResultDAO().results();
+        TreeSet<Result> savedResults = getResultDAO().results();
         for (Result item : getDataFinderItalianSerieA().findResults()) {
             if (!savedResults.contains(item)) {
                 getResultDAO().insertResult(item);

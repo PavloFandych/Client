@@ -3,7 +3,7 @@ package org.total.spring.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Result implements Serializable {
+public class Result implements Serializable, Comparable<Result> {
     private long resultId;
     private Date date;
     private long goalsByGuest;
@@ -101,6 +101,11 @@ public class Result implements Serializable {
 
     public void setTournamentId(long tournamentId) {
         this.tournamentId = tournamentId;
+    }
+
+    @Override
+    public int compareTo(Result result) {
+        return this.getResultCode().compareTo(result.getResultCode());
     }
 
     @Override

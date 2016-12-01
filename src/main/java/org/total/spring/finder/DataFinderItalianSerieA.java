@@ -53,7 +53,8 @@ public class DataFinderItalianSerieA extends DataFinder {
                         && result.get("goalsAwayTeam") != null
                         && item.get("matchday") != null
                         && homeTeam != null
-                        && awayTeam != null) {
+                        && awayTeam != null
+                        && item.get("status").equals("FINISHED")) {
                     Result targetResult = new Result();
 
                     String dateString = ((String) item.get("date")).replace('T', ' ');

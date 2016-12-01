@@ -1,13 +1,12 @@
 package org.total.spring.masters;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.total.spring.dao.ResultDAO;
 import org.total.spring.entity.Result;
 import org.total.spring.finder.DataFinder;
 
-import java.util.List;
+import java.util.TreeSet;
 
 /**
  * Created by total on 11/23/16.
@@ -39,7 +38,7 @@ public class BundesLigaMaster implements Master {
 
     @Override
     public void populateResults() {
-        List<Result> savedResults = getResultDAO().results();
+        TreeSet<Result> savedResults = getResultDAO().results();
         for (Result item : getDataFinderBundesLiga1().findResults()) {
             if (!savedResults.contains(item)) {
                 getResultDAO().insertResult(item);
