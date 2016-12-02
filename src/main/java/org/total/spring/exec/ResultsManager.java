@@ -1,32 +1,44 @@
 package org.total.spring.exec;
 
+import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.total.spring.masters.*;
 
-import java.util.Properties;
-
 public class ResultsManager {
-    public static void main(String[] args) throws Exception {
-        ApplicationContext context =
-                new ClassPathXmlApplicationContext(
-                        new String[]{"applicationContext.xml"});
-        BundesLigaMaster bundesLigaMaster = ((BundesLigaMaster) context.getBean("bundesLigaMaster"));
-        bundesLigaMaster.populateResults();
-        ((PremierLeagueMaster) context.getBean("premierLeagueMaster")).populateResults();
-        ((SerieAMaster) context.getBean("serieAMaster")).populateResults();
+    private static final Logger LOGGER = Logger.getLogger(ResultsManager.class);
 
-        LaLigaMaster laLigaMaster = (LaLigaMaster) context.getBean("laLigaMaster");
-        laLigaMaster.populateResults();
+    public static void main(String[] args) {
+        try {
+            long start = System.nanoTime();
 
-        Ligue1Master ligue1Master = (Ligue1Master) context.getBean("ligue1Master");
-        ligue1Master.populateResults();
+            ApplicationContext context =
+                    new ClassPathXmlApplicationContext(
+                            new String[]{"applicationContext.xml"});
+            BundesLigaMaster bundesLigaMaster = ((BundesLigaMaster) context.getBean("bundesLigaMaster"));
+            bundesLigaMaster.populateResults();
+            ((PremierLeagueMaster) context.getBean("premierLeagueMaster")).populateResults();
+            ((SerieAMaster) context.getBean("serieAMaster")).populateResults();
 
-        Long size = bundesLigaMaster.getResultDAO().getResultSize();
-        System.out.println(size);
+            LaLigaMaster laLigaMaster = (LaLigaMaster) context.getBean("laLigaMaster");
+            laLigaMaster.populateResults();
 
-        CachedStandingsMaster cachedStandingsMaster = (CachedStandingsMaster) context.getBean("cachedStandingsMaster");
-//        cachedStandingsMaster.populateResults("S20152016", "ENG_PREM_LEAGUE");
-        cachedStandingsMaster.populateResults("ENG_PREM_LEAGUE");
+            Ligue1Master ligue1Master = (Ligue1Master) context.getBean("ligue1Master");
+            ligue1Master.populateResults();
+
+            LOGGER.info("ResultSize :" + bundesLigaMaster.getResultDAO().getResultSize());
+
+            CachedStandingsMaster cachedStandingsMaster = (CachedStandingsMaster) context.getBean("cachedStandingsMaster");
+            cachedStandingsMaster.populateResults("S20162017", "DEU_BUNDESLIGA_1");
+            cachedStandingsMaster.populateResults("S20162017", "ENG_PREM_LEAGUE");
+            cachedStandingsMaster.populateResults("S20162017", "ITA_SERIA_A");
+            cachedStandingsMaster.populateResults("S20162017", "ESP_PRIMERA");
+            cachedStandingsMaster.populateResults("S20162017", "FRA_LIGUE_1");
+
+            long end = System.nanoTime();
+            LOGGER.info("Duration: " + (end - start) / 1000000000 + " sec");
+        } catch (Exception e) {
+            LOGGER.error(e, e);
+        }
     }
 }

@@ -59,7 +59,9 @@ public class ResultDAO extends GenericDAO {
         Map<String, Object> out = simpleJdbcCall
                 .execute();
 
-        return ((List<Long>) out.get("size")).get(0);
+        List<Long> resultList = (List<Long>) out.get("size");
+
+        return (resultList!= null && !resultList.isEmpty()) ? resultList.get(0) : -1;
     }
 
     public void insertResult(final Result result) {

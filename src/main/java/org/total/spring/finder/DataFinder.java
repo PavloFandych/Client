@@ -12,6 +12,8 @@ import org.total.spring.util.SeasonMapper;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * Created by total on 11/2/16.
@@ -48,9 +50,17 @@ public abstract class DataFinder {
 
     protected final JSONArray getFixtures() {
         try {
+            Properties credentials = new Properties();
+            credentials.load(DataFinder.class.getClassLoader()
+                    .getResourceAsStream("credentials.properties"));
+
+            Map<String, String> headers = new HashMap<>();
+            headers.put(credentials.getProperty("footballDataOrgTokenName"),
+                    credentials.getProperty("footballDataOrgTokenValue"));
+
             return (JSONArray) ((JSONObject) new JSONParser()
                     .parse(getHttpExecutor()
-                            .executeGet(getUrl(), new HashMap<String, String>(), ""))).get("fixtures");
+                            .executeGet(getUrl(), headers, ""))).get("fixtures");
         } catch (Exception e) {
             LOGGER.error(e, e);
         }

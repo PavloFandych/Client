@@ -16,6 +16,20 @@ public interface Constants {
             " goalsByHost, matchDay, resultCode, guestTeamId," +
             " hostTeamId, seasonId, tournamentId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
+    public static final String INSERT_CACHED_STANDINGS = "INSERT INTO GoalDB.Standings" +
+            " (seasonId, tournamentId, standing) VALUES (?, ?, ?)";
+
+    public static final String UPDATE_CACHED_STANDINGS = "UPDATE GoalDB.Standings set standing = ?" +
+            " WHERE seasonId = ? AND tournamentId = ?";
+
+    public static final String COUNT_CACHED_STANDINGS = "SELECT COUNT(*) FROM Standings " +
+            "WHERE seasonId = ? AND tournamentId = ?";
+
+    public static final String FETCH_SEASON_BY_SEASON_CODE = "SELECT * FROM GoalDB.Season WHERE seasonCode = ?";
+
+    public static final String FETCH_TOURNAMENT_BY_TOURNAMENT_CODE = "SELECT * FROM " +
+            "GoalDB.Tournament WHERE tournamentCode = ?";
+
     public static final String API_BUNDESLIGA_1 = "://api.football-data.org/v1/soccerseasons/430/fixtures";
     public static final String API_BUNDESLIGA_2 = "://api.football-data.org/v1/soccerseasons/431/fixtures";
     public static final String API_ENG_PREM_LEAGUE = "://api.football-data.org/v1/soccerseasons/426/fixtures";

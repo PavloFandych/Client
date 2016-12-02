@@ -42,4 +42,24 @@ public class TournamentDAO extends GenericDAO {
 
         return (resultList != null && !resultList.isEmpty()) ? resultList : null;
     }
+
+    public Tournament fetchTournamentByTournamentCode(String tournamentCode) {
+        Tournament result = getJdbcTemplate()
+                .queryForObject(Constants.FETCH_TOURNAMENT_BY_TOURNAMENT_CODE,
+                        new RowMapper<Tournament>() {
+                            @Override
+                            public Tournament mapRow(ResultSet resultSet, int i) throws SQLException {
+                                Tournament tournament = new Tournament();
+                                tournament.setTournamentId(resultSet.getLong("tournamentId"));
+                                tournament.setTournamentCode(TournamentCode.valueOf(resultSet
+                                        .getString("tournamentCode")));
+                                tournament.setTournamentName(resultSet.getString("tournamentName"));
+                                tournament.setTournamentType(TournamentType.valueOf(resultSet
+                                        .getString("tournamentType")));
+                                tournament.setCountryId(resultSet.getLong("countryId"));
+                                return tournament;
+                            }
+                        }, tournamentCode);
+        return (result != null) ? result : null;
+    }
 }

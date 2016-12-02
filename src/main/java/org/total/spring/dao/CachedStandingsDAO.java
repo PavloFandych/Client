@@ -4,14 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.total.spring.entity.Season;
 import org.total.spring.entity.Tournament;
-import org.total.spring.entity.enums.SeasonCode;
-import org.total.spring.entity.enums.TournamentCode;
 import org.total.spring.http.HttpExecutor;
 import org.total.spring.util.Constants;
 import org.total.spring.util.PasswordManager;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -93,27 +90,41 @@ public class CachedStandingsDAO extends GenericDAO {
                 headers.put("Version", "V1");
                 headers.put("Authorization", getPasswordManager().encodeBase64(user + ":" + userpass));
 
-                LOGGER.info(getHttpExecutor().executeGet(Constants.URL_STANDINGS, headers, builder.toString()));
+                String standingsText = getHttpExecutor().executeGet(Constants.URL_STANDINGS, headers, builder.toString());
 
-                Long seasonId = -1L;
-                Long tournamentId = -1L;
+                Season season = getSeasonDAO().fetchSeasonBySeasonCode(seasonCode);
+                Tournament tournament = getTournamentDAO().fetchTournamentByTournamentCode(tournamentCode);
 
-                for (Season item : getSeasonDAO().seasons()) {
-                    if (item.getSeasonCode().equals(SeasonCode.valueOf(seasonCode))) {
-                        seasonId = item.getSeasonId();
-                        break;
+                if (season != null
+                        && season.getSeasonId() > 0
+                        && tournament.getTournamentId() > 0
+                        && tournament != null
+                        && tournament.getTournamentId() > 0
+                        && standingsText != null
+                        && !standingsText.isEmpty()) {
+                    LOGGER.info("SeasonId = " + season.getSeasonId() + "" +
+                            " TournamentId = " + tournament.getTournamentId());
+                    LOGGER.info("isStandingExists = " +
+                            isStandingExists(season.getSeasonId(), tournament.getTournamentId()));
+
+                    if (!isStandingExists(season.getSeasonId(), tournament.getTournamentId())) {
+                        LOGGER.info("saving..." + standingsText);
+                        getJdbcTemplate()
+                                .update(Constants.INSERT_CACHED_STANDINGS,
+                                        new Object[]{season.getSeasonId(),
+                                                tournament.getTournamentId(),
+                                                standingsText});
+                    } else {
+                        LOGGER.info("updating..." + standingsText);
+                        getJdbcTemplate()
+                                .update(Constants.UPDATE_CACHED_STANDINGS,
+                                        standingsText,
+                                        season.getSeasonId(),
+                                        tournament.getTournamentId());
                     }
-                }
-
-                for (Tournament item : getTournamentDAO().tournaments()) {
-                    if (item.getTournamentCode().equals(TournamentCode.valueOf(tournamentCode))) {
-                        tournamentId = item.getTournamentId();
-                        break;
-                    }
-                }
-
-                if (seasonId > 0 && tournamentId > 0) {
-                    LOGGER.info("SeasonId = " + seasonId + " TournamentId = " + tournamentId);
+                } else {
+                    LOGGER.error("SeasonId = " + season.getSeasonId() + " tournamentId = "
+                            + tournament.getTournamentId() + standingsText);
                 }
             } else {
                 LOGGER.error("Invalid input parameters");
@@ -121,5 +132,17 @@ public class CachedStandingsDAO extends GenericDAO {
         } catch (Exception e) {
             LOGGER.error(e, e);
         }
+    }
+
+    private boolean isStandingExists(Long seasonId, Long tournamentId) {
+        boolean result = false;
+        int count = getJdbcTemplate()
+                .queryForObject(Constants.COUNT_CACHED_STANDINGS,
+                        new Object[]{seasonId,
+                                tournamentId}, Integer.class);
+        if (count > 0) {
+            result = true;
+        }
+        return result;
     }
 }

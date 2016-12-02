@@ -1,5 +1,6 @@
 package org.total.spring.finder;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -39,7 +40,12 @@ public class DataFinderItalianSerieA extends DataFinder {
     public List<Result> findResults() {
         List<Result> results = new ArrayList<>();
         try {
-            Iterator<JSONObject> iterator = getFixtures().iterator();
+            JSONArray fixtures = getFixtures();
+            if (fixtures == null) {
+                return null;
+            }
+
+            Iterator<JSONObject> iterator = fixtures.iterator();
 
             while (iterator.hasNext()) {
                 JSONObject item = iterator.next();

@@ -39,4 +39,21 @@ public class SeasonDAO extends GenericDAO {
 
         return (resultList != null && !resultList.isEmpty()) ? resultList : null;
     }
+
+    public Season fetchSeasonBySeasonCode(String seasonCode) {
+        Season result = getJdbcTemplate()
+                .queryForObject(Constants.FETCH_SEASON_BY_SEASON_CODE,
+                        new RowMapper<Season>() {
+                            @Override
+                            public Season mapRow(ResultSet resultSet, int i) throws SQLException {
+                                Season season = new Season();
+                                season.setSeasonId(resultSet.getLong("seasonId"));
+                                season.setSeasonCode(SeasonCode.valueOf(resultSet
+                                        .getString("seasonCode")));
+                                season.setSeasonName(resultSet.getString("seasonName"));
+                                return season;
+                            }
+                        }, seasonCode);
+        return (result != null) ? result : null;
+    }
 }

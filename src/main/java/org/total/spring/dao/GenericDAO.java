@@ -48,7 +48,9 @@ public abstract class GenericDAO {
                     .execute(new MapSqlParameterSource()
                             .addValue("teamCode", mapping.get(teamName)));
 
-            return ((List<Team>) out.get("team")).get(0);
+            List<Team> resultList = (List<Team>) out.get("team");
+
+            return (resultList != null && !resultList.isEmpty()) ? resultList.get(0) : null;
         }
         return null;
     }
