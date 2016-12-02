@@ -58,9 +58,15 @@ public abstract class DataFinder {
             headers.put(credentials.getProperty("footballDataOrgTokenName"),
                     credentials.getProperty("footballDataOrgTokenValue"));
 
+            LOGGER.debug("URL: " + getUrl());
+
+            String response = getHttpExecutor()
+                    .executeGet(getUrl(), headers, "");
+
+            LOGGER.debug("Response: " + response);
+
             return (JSONArray) ((JSONObject) new JSONParser()
-                    .parse(getHttpExecutor()
-                            .executeGet(getUrl(), headers, ""))).get("fixtures");
+                    .parse(response)).get("fixtures");
         } catch (Exception e) {
             LOGGER.error(e, e);
         }

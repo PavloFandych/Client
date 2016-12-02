@@ -5,8 +5,10 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.total.spring.dao.ItalianTeamDAO;
+import org.total.spring.dao.TournamentDAO;
 import org.total.spring.entity.Result;
 import org.total.spring.entity.Team;
+import org.total.spring.entity.Tournament;
 import org.total.spring.entity.enums.Protocol;
 import org.total.spring.util.Constants;
 
@@ -22,12 +24,23 @@ public class DataFinderItalianSerieA extends DataFinder {
     @Autowired
     private ItalianTeamDAO italianTeamDAO;
 
+    @Autowired
+    private TournamentDAO tournamentDAO;
+
     public ItalianTeamDAO getItalianTeamDAO() {
         return italianTeamDAO;
     }
 
     public void setItalianTeamDAO(ItalianTeamDAO italianTeamDAO) {
         this.italianTeamDAO = italianTeamDAO;
+    }
+
+    public TournamentDAO getTournamentDAO() {
+        return tournamentDAO;
+    }
+
+    public void setTournamentDAO(TournamentDAO tournamentDAO) {
+        this.tournamentDAO = tournamentDAO;
     }
 
     @Override
@@ -47,6 +60,8 @@ public class DataFinderItalianSerieA extends DataFinder {
 
             Iterator<JSONObject> iterator = fixtures.iterator();
 
+            Tournament tournament = getTournamentDAO().fetchTournamentByTournamentCode("ITA_SERIA_A");
+
             while (iterator.hasNext()) {
                 JSONObject item = iterator.next();
                 JSONObject result = (JSONObject) item.get("result");
@@ -60,7 +75,8 @@ public class DataFinderItalianSerieA extends DataFinder {
                         && item.get("matchday") != null
                         && homeTeam != null
                         && awayTeam != null
-                        && item.get("status").equals("FINISHED")) {
+                        && item.get("status").equals("FINISHED")
+                        && tournament != null) {
                     Result targetResult = new Result();
 
                     String dateString = ((String) item.get("date")).replace('T', ' ');
@@ -74,7 +90,7 @@ public class DataFinderItalianSerieA extends DataFinder {
                     targetResult.setGuestTeamId(awayTeam.getTeamId());
                     targetResult.setHostTeamId(homeTeam.getTeamId());
                     targetResult.setSeasonId(getSeasonMapper().mapSeason(date));
-                    targetResult.setTournamentId(3L);
+                    targetResult.setTournamentId(tournament.getTournamentId());
 
                     results.add(targetResult);
                 }

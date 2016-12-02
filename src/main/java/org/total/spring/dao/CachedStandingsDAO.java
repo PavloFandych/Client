@@ -103,8 +103,8 @@ public class CachedStandingsDAO extends GenericDAO {
                         && standingsText != null
                         && !standingsText.isEmpty()) {
                     LOGGER.info("SeasonId = " + season.getSeasonId() + "" +
-                            " TournamentId = " + tournament.getTournamentId());
-                    LOGGER.info("isStandingExists = " +
+                            " TournamentId = " + tournament.getTournamentId() +
+                            " isStandingExists = " +
                             isStandingExists(season.getSeasonId(), tournament.getTournamentId()));
 
                     if (!isStandingExists(season.getSeasonId(), tournament.getTournamentId())) {
