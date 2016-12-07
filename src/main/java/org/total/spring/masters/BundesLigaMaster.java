@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.total.spring.dao.ResultDAO;
 import org.total.spring.entity.Result;
+import org.total.spring.entity.enums.SeasonCode;
 import org.total.spring.entity.enums.TournamentCode;
 import org.total.spring.finder.DataFinder;
 
@@ -39,8 +40,12 @@ public class BundesLigaMaster implements Master {
 
     @Override
     public void populateResults() {
+
+    }
+
+    public void populateResults(SeasonCode seasonCode) {
         TreeSet<Result> savedResults = getResultDAO()
-                .findResultsByTournamentCode(TournamentCode.DEU_BUNDESLIGA_1);
+                .findResultsBySeasonCodeAndTournamentCode(seasonCode, TournamentCode.DEU_BUNDESLIGA_1);
         for (Result item : getDataFinderBundesLiga1().findResults()) {
             if (!savedResults.contains(item)) {
                 getResultDAO().insertResult(item);
