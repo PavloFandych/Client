@@ -11,6 +11,7 @@ public interface Constants {
     public static final String CALL_GET_SEASON_LIST = "getSeasonsList";
     public static final String CALL_RESULT_SIZE = "getResultSize";
     public static final String CALL_GET_TOURNAMENT_LIST = "getTournamentList";
+    public static final String CALL_GET_ALL_RESULTS_BY_TOURNAMENT_CODE ="getAllResultsByTournamentCode";
 
     public static final String INSERT_RESULT = "INSERT INTO GoalDB.Result (date, goalsByGuest," +
             " goalsByHost, matchDay, resultCode, guestTeamId," +
@@ -30,6 +31,7 @@ public interface Constants {
     public static final String FETCH_TOURNAMENT_BY_TOURNAMENT_CODE = "SELECT * FROM " +
             "GoalDB.Tournament WHERE tournamentCode = ?";
 
+    /*URL football-data.org*/
     public static final String API_BUNDESLIGA_1 = "://api.football-data.org/v1/soccerseasons/430/fixtures";
     public static final String API_BUNDESLIGA_2 = "://api.football-data.org/v1/soccerseasons/431/fixtures";
     public static final String API_ENG_PREM_LEAGUE = "://api.football-data.org/v1/soccerseasons/426/fixtures";
@@ -41,4 +43,7 @@ public interface Constants {
     public static final String URL_STANDINGS = "http://localhost:8080/standings";
 
     public static final String CONTENT_TYPE_APPLICATION_JSON = "application/json";
+
+    public static final String INVALID_TOURNAMENT_CODE = "Invalid tournament code";
+    public static final String NO_TOURNAMENT_CODE_FOUND = "No tournament code found";
 }
