@@ -11,7 +11,7 @@ import java.security.cert.Certificate;
 /**
  * Created by pavlo.fandych on 3/31/2015.
  */
-public class SSLVerifier {
+public final class SSLVerifier {
 
     private static final Log log = LogFactory.getLog(SSLVerifier.class);
 

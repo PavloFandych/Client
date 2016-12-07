@@ -47,4 +47,14 @@ public final class Constants {
     public static final String INVALID_TOURNAMENT_CODE = "Invalid tournament code";
     public static final String INVALID_SEASON_CODE = "Invalid season code";
     public static final String NO_TOURNAMENT_CODE_FOUND = "No tournament code found";
+
+    public static final String HOME_TEAM_NAME = "homeTeamName";
+    public static final String AWAY_TEAM_NAME = "awayTeamName";
+    public static final String GOALS_HOME_TEAM = "goalsHomeTeam";
+    public static final String GOALS_AWAY_TEAM = "goalsAwayTeam";
+
+    public static final String MATCH_DAY = "matchday";
+    public static final String MATCH_STATUS_FINISHED = "FINISHED";
+
+    public static final String SEASON_MAPPER_FORMAT_DATE = "yyyy-MM-dd HH:mm:ss";
 }

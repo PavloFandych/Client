@@ -18,7 +18,7 @@ import java.util.Map;
  */
 
 @Repository("TournamentDAO")
-public class TournamentDAO extends GenericDAO {
+public final class TournamentDAO extends GenericDAO {
     public List<Tournament> tournaments() {
         SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(getJdbcTemplate())
                 .withProcedureName(Constants.CALL_GET_TOURNAMENT_LIST)
@@ -43,7 +43,7 @@ public class TournamentDAO extends GenericDAO {
         return (resultList != null && !resultList.isEmpty()) ? resultList : null;
     }
 
-    public Tournament fetchTournamentByTournamentCode(String tournamentCode) {
+    public Tournament fetchTournamentByTournamentCode(final String tournamentCode) {
         Tournament result = getJdbcTemplate()
                 .queryForObject(Constants.FETCH_TOURNAMENT_BY_TOURNAMENT_CODE,
                         new RowMapper<Tournament>() {

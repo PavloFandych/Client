@@ -10,11 +10,12 @@ import org.total.spring.util.Constants;
 
 import java.util.Properties;
 
-public class ResultsManager {
+public final class ResultsManager {
     private static final Logger LOGGER = Logger.getLogger(ResultsManager.class);
 
     public static void main(String[] args) {
-        if (args != null && args.length > 0) {
+        if (args != null
+                && args.length > 0) {
             try {
                 long start = System.nanoTime();
 
@@ -28,7 +29,8 @@ public class ResultsManager {
                 Properties credentials = new Properties();
                 credentials.load(ResultsManager.class.getClassLoader()
                         .getResourceAsStream("credentials.properties"));
-                String seasonCode = credentials.getProperty("seasonCodeArgument");
+                String seasonCode = credentials
+                        .getProperty("currentSeasonCode");
 
                 if (isSeasonCodeValid(seasonCode)) {
                     for (String item : args) {
@@ -45,35 +47,40 @@ public class ResultsManager {
                                 BundesLigaMaster bundesLigaMaster = ((BundesLigaMaster) context
                                         .getBean("bundesLigaMaster"));
                                 bundesLigaMaster.populateResults(SeasonCode.valueOf(seasonCode));
-                                cachedStandingsMaster.populateResults(seasonCode, TournamentCode.DEU_BUNDESLIGA_1.name());
+                                cachedStandingsMaster.populateResults(seasonCode,
+                                        TournamentCode.DEU_BUNDESLIGA_1.name());
                                 break;
                             }
                             case ENG_PREM_LEAGUE: {
                                 PremierLeagueMaster premierLeagueMaster = ((PremierLeagueMaster) context
                                         .getBean("premierLeagueMaster"));
                                 premierLeagueMaster.populateResults(SeasonCode.valueOf(seasonCode));
-                                cachedStandingsMaster.populateResults(seasonCode, TournamentCode.ENG_PREM_LEAGUE.name());
+                                cachedStandingsMaster.populateResults(seasonCode,
+                                        TournamentCode.ENG_PREM_LEAGUE.name());
                                 break;
                             }
                             case ITA_SERIA_A: {
                                 SerieAMaster serieAMaster = ((SerieAMaster) context
                                         .getBean("serieAMaster"));
                                 serieAMaster.populateResults(SeasonCode.valueOf(seasonCode));
-                                cachedStandingsMaster.populateResults(seasonCode, TournamentCode.ITA_SERIA_A.name());
+                                cachedStandingsMaster.populateResults(seasonCode,
+                                        TournamentCode.ITA_SERIA_A.name());
                                 break;
                             }
                             case ESP_PRIMERA: {
                                 LaLigaMaster laLigaMaster = (LaLigaMaster) context
                                         .getBean("laLigaMaster");
                                 laLigaMaster.populateResults(SeasonCode.valueOf(seasonCode));
-                                cachedStandingsMaster.populateResults(seasonCode, TournamentCode.ESP_PRIMERA.name());
+                                cachedStandingsMaster.populateResults(seasonCode,
+                                        TournamentCode.ESP_PRIMERA.name());
                                 break;
                             }
                             case FRA_LIGUE_1: {
                                 Ligue1Master ligue1Master = (Ligue1Master) context
                                         .getBean("ligue1Master");
                                 ligue1Master.populateResults(SeasonCode.valueOf(seasonCode));
-                                cachedStandingsMaster.populateResults(seasonCode, TournamentCode.FRA_LIGUE_1.name());
+                                cachedStandingsMaster.populateResults(seasonCode,
+                                        TournamentCode.FRA_LIGUE_1.name());
                                 break;
                             }
                             default: {
@@ -94,7 +101,7 @@ public class ResultsManager {
         }
     }
 
-    private static boolean isSeasonCodeValid(String seasonCode) {
+    private static boolean isSeasonCodeValid(final String seasonCode) {
         SeasonCode seasonCodeEnum = null;
         try {
             seasonCodeEnum = SeasonCode.valueOf(seasonCode);

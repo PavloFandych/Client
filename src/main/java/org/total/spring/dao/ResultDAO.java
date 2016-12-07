@@ -15,7 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Repository("resultDAO")
-public class ResultDAO extends GenericDAO {
+public final class ResultDAO extends GenericDAO {
     public TreeSet<Result> results() {
         SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(getJdbcTemplate())
                 .withProcedureName(Constants.CALL_FETCH_ALL_RESULTS_SQL)
@@ -49,8 +49,8 @@ public class ResultDAO extends GenericDAO {
         return (new TreeSet<>((List<Result>) out.get("results")));
     }
 
-    public TreeSet<Result> findResultsBySeasonCodeAndTournamentCode(SeasonCode seasonCode,
-                                                                    TournamentCode tournamentCode) {
+    public TreeSet<Result> findResultsBySeasonCodeAndTournamentCode(final SeasonCode seasonCode,
+                                                                    final TournamentCode tournamentCode) {
         SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(getJdbcTemplate())
                 .withProcedureName(Constants.CALL_GET_ALL_RESULTS_BY_SEASON_CODE_AND_TOURNAMENT_CODE)
                 .returningResultSet("resultsBySeasonCodeAndTournamentCode", new RowMapper<Result>() {

@@ -3,11 +3,13 @@ package org.total.spring.entity;
 import org.total.spring.entity.enums.TournamentCode;
 import org.total.spring.entity.enums.TournamentType;
 
+import java.io.Serializable;
+
 /**
  * Created by total on 12/1/16.
  */
 
-public class Tournament {
+public final class Tournament implements Serializable {
     private long tournamentId;
     private TournamentCode tournamentCode;
     private String tournamentName;

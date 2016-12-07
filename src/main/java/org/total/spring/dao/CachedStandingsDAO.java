@@ -17,7 +17,7 @@ import java.util.Properties;
  */
 
 @Repository("cachedStandingsDAO")
-public class CachedStandingsDAO extends GenericDAO {
+public final class CachedStandingsDAO extends GenericDAO {
     @Autowired
     private HttpExecutor httpExecutor;
 
@@ -62,7 +62,7 @@ public class CachedStandingsDAO extends GenericDAO {
         this.tournamentDAO = tournamentDAO;
     }
 
-    public void saveStandings(String seasonCode, String tournamentCode) {
+    public void saveStandings(final String seasonCode, final String tournamentCode) {
         try {
             Properties credentials = new Properties();
             credentials.load(CachedStandingsDAO.class.getClassLoader()
@@ -134,7 +134,7 @@ public class CachedStandingsDAO extends GenericDAO {
         }
     }
 
-    private boolean isStandingExists(Long seasonId, Long tournamentId) {
+    private boolean isStandingExists(final Long seasonId, final Long tournamentId) {
         boolean result = false;
         int count = getJdbcTemplate()
                 .queryForObject(Constants.COUNT_CACHED_STANDINGS,

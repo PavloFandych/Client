@@ -5,7 +5,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Component;
 
 @Component("passwordManager")
-public class PasswordManagerImpl implements PasswordManager {
+public final class PasswordManagerImpl implements PasswordManager {
 
     @Override
     public synchronized String encodeMD5(final String password) {

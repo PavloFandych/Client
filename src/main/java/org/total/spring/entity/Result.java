@@ -3,7 +3,7 @@ package org.total.spring.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Result implements Serializable, Comparable<Result> {
+public final class Result implements Serializable, Comparable<Result> {
     private long resultId;
     private Date date;
     private long goalsByGuest;

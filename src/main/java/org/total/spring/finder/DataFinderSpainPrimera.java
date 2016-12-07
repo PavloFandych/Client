@@ -10,6 +10,7 @@ import org.total.spring.entity.Result;
 import org.total.spring.entity.Team;
 import org.total.spring.entity.Tournament;
 import org.total.spring.entity.enums.Protocol;
+import org.total.spring.entity.enums.TournamentCode;
 import org.total.spring.util.Constants;
 
 import java.text.SimpleDateFormat;
@@ -20,7 +21,7 @@ import java.util.*;
  */
 
 @Repository("dataFinderSpainPrimera")
-public class DataFinderSpainPrimera extends DataFinder {
+public final class DataFinderSpainPrimera extends DataFinder {
     @Autowired
     private SpanishTeamDAO spanishTeamDAO;
 
@@ -60,39 +61,43 @@ public class DataFinderSpainPrimera extends DataFinder {
 
             Iterator<JSONObject> iterator = fixtures.iterator();
 
-            Tournament tournament = getTournamentDAO().fetchTournamentByTournamentCode("ESP_PRIMERA");
+            Tournament tournament = getTournamentDAO()
+                    .fetchTournamentByTournamentCode(TournamentCode.ESP_PRIMERA.name());
 
             while (iterator.hasNext()) {
                 JSONObject item = iterator.next();
                 JSONObject result = (JSONObject) item.get("result");
 
-                Team homeTeam = getSpanishTeamDAO().findByTeamName((String) item.get("homeTeamName"));
-                Team awayTeam = getSpanishTeamDAO().findByTeamName((String) item.get("awayTeamName"));
+                Team homeTeam = getSpanishTeamDAO()
+                        .findByTeamName((String) item.get(Constants.HOME_TEAM_NAME));
+                Team awayTeam = getSpanishTeamDAO()
+                        .findByTeamName((String) item.get(Constants.AWAY_TEAM_NAME));
 
                 if (item.get("date") != null
-                        && result.get("goalsHomeTeam") != null
-                        && result.get("goalsAwayTeam") != null
-                        && item.get("matchday") != null
+                        && result.get(Constants.GOALS_HOME_TEAM) != null
+                        && result.get(Constants.GOALS_AWAY_TEAM) != null
+                        && item.get(Constants.MATCH_DAY) != null
                         && homeTeam != null
                         && awayTeam != null
-                        && item.get("status").equals("FINISHED")
+                        && item.get("status").equals(Constants.MATCH_STATUS_FINISHED)
                         && tournament != null) {
-                    Result targetResult = new Result();
-
                     String dateString = ((String) item.get("date")).replace('T', ' ');
                     Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
                             Locale.ENGLISH).parse(dateString);
-                    targetResult.setDate(date);
-                    targetResult.setGoalsByGuest((long) result.get("goalsAwayTeam"));
-                    targetResult.setGoalsByHost((long) result.get("goalsHomeTeam"));
-                    targetResult.setMatchDay((long) item.get("matchday"));
-                    targetResult.setResultCode(generateResultCode(dateString, homeTeam, awayTeam));
-                    targetResult.setGuestTeamId(awayTeam.getTeamId());
-                    targetResult.setHostTeamId(homeTeam.getTeamId());
-                    targetResult.setSeasonId(getSeasonMapper().mapSeason(date));
-                    targetResult.setTournamentId(tournament.getTournamentId());
+                    if (getSeasonMapper().mapSeason(date) > 0) {
+                        Result targetResult = new Result();
+                        targetResult.setDate(date);
+                        targetResult.setGoalsByGuest((long) result.get(Constants.GOALS_AWAY_TEAM));
+                        targetResult.setGoalsByHost((long) result.get(Constants.GOALS_HOME_TEAM));
+                        targetResult.setMatchDay((long) item.get(Constants.MATCH_DAY));
+                        targetResult.setResultCode(generateResultCode(dateString, homeTeam, awayTeam));
+                        targetResult.setGuestTeamId(awayTeam.getTeamId());
+                        targetResult.setHostTeamId(homeTeam.getTeamId());
+                        targetResult.setSeasonId(getSeasonMapper().mapSeason(date));
+                        targetResult.setTournamentId(tournament.getTournamentId());
 
-                    results.add(targetResult);
+                        results.add(targetResult);
+                    }
                 }
             }
         } catch (Exception e) {

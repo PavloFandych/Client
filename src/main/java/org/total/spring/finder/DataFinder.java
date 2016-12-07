@@ -73,7 +73,9 @@ public abstract class DataFinder {
         return null;
     }
 
-    protected String generateResultCode(String target, Team home, Team away) {
+    protected String generateResultCode(final String target,
+                                        final Team home,
+                                        final Team away) {
         String[] arrayOne = target.split(" ");
         String[] arrayTwo = arrayOne[0].split("-");
         StringBuilder builder = new StringBuilder();

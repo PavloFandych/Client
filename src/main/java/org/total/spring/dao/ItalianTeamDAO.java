@@ -11,7 +11,7 @@ import java.util.Map;
  */
 
 @Repository("italianTeamDAO")
-public class ItalianTeamDAO extends GenericDAO {
+public final class ItalianTeamDAO extends GenericDAO {
     private static final Map<String, String> ITALY_TEAMS_MAPPING = new HashMap<>();
 
     static {
@@ -37,7 +37,7 @@ public class ItalianTeamDAO extends GenericDAO {
         ITALY_TEAMS_MAPPING.put("SSC Napoli", "ITA062");
     }
 
-    public Team findByTeamName(String teamName) {
+    public Team findByTeamName(final String teamName) {
         return findTeam(teamName, ITALY_TEAMS_MAPPING);
     }
 }

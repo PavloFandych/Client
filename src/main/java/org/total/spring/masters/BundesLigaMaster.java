@@ -15,7 +15,7 @@ import java.util.TreeSet;
  */
 
 @Component("bundesLigaMaster")
-public class BundesLigaMaster implements Master {
+public final class BundesLigaMaster implements Master {
     @Autowired
     private DataFinder dataFinderBundesLiga1;
 
@@ -40,10 +40,16 @@ public class BundesLigaMaster implements Master {
 
     @Override
     public void populateResults() {
-
+        TreeSet<Result> savedResults = getResultDAO()
+                .results();
+        for (Result item : getDataFinderBundesLiga1().findResults()) {
+            if (!savedResults.contains(item)) {
+                getResultDAO().insertResult(item);
+            }
+        }
     }
 
-    public void populateResults(SeasonCode seasonCode) {
+    public void populateResults(final SeasonCode seasonCode) {
         TreeSet<Result> savedResults = getResultDAO()
                 .findResultsBySeasonCodeAndTournamentCode(seasonCode, TournamentCode.DEU_BUNDESLIGA_1);
         for (Result item : getDataFinderBundesLiga1().findResults()) {

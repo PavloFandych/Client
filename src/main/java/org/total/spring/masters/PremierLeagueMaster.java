@@ -15,7 +15,7 @@ import java.util.TreeSet;
  */
 
 @Component("premierLeagueMaster")
-public class PremierLeagueMaster implements Master {
+public final class PremierLeagueMaster implements Master {
     @Autowired
     private DataFinder dataFinderEnglishPremierLeague;
 
@@ -40,10 +40,16 @@ public class PremierLeagueMaster implements Master {
 
     @Override
     public void populateResults() {
-
+        TreeSet<Result> savedResults = getResultDAO()
+                .results();
+        for (Result item : getDataFinderEnglishPremierLeague().findResults()) {
+            if (!savedResults.contains(item)) {
+                getResultDAO().insertResult(item);
+            }
+        }
     }
 
-    public void populateResults(SeasonCode seasonCode) {
+    public void populateResults(final SeasonCode seasonCode) {
         TreeSet<Result> savedResults = getResultDAO()
                 .findResultsBySeasonCodeAndTournamentCode(seasonCode, TournamentCode.ENG_PREM_LEAGUE);
         for (Result item : getDataFinderEnglishPremierLeague().findResults()) {

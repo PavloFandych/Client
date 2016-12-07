@@ -1,89 +1,140 @@
 package org.total.spring.util;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by total on 11/23/16.
  */
 
 @Component("seasonMapper")
-public class SeasonMapper {
+public final class SeasonMapper {
+    private static final Logger LOGGER = Logger.getLogger(SeasonMapper.class);
     private static final Map<Date, Date> SEASONS = new LinkedHashMap<>();
 
     static {
         try {
-            SEASONS.put(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2000-07-15 00:00:00"),
-                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2001-06-01 00:00:00"));
+            Properties credentials = new Properties();
+            credentials.load(SeasonMapper.class.getClassLoader()
+                    .getResourceAsStream("credentials.properties"));
 
-            SEASONS.put(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2001-07-15 00:00:00"),
-                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2002-06-01 00:00:00"));
+            String begin = credentials.getProperty("seasonBeginMonthDay");
+            String end = credentials.getProperty("seasonEndMonthDay");
 
-            SEASONS.put(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2002-07-15 00:00:00"),
-                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2003-06-01 00:00:00"));
+            SEASONS.put(new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2000-".concat(begin).concat(" 00:00:00")),
+                    new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2001-".concat(end).concat(" 00:00:00")));
 
-            SEASONS.put(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2003-07-15 00:00:00"),
-                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2004-06-01 00:00:00"));
+            SEASONS.put(new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2001-".concat(begin).concat(" 00:00:00")),
+                    new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2002-".concat(end).concat(" 00:00:00")));
 
-            SEASONS.put(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2004-07-15 00:00:00"),
-                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2005-06-01 00:00:00"));
+            SEASONS.put(new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2002-".concat(begin).concat(" 00:00:00")),
+                    new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2003-".concat(end).concat(" 00:00:00")));
 
-            SEASONS.put(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2005-07-15 00:00:00"),
-                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2006-06-01 00:00:00"));
+            SEASONS.put(new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2003-".concat(begin).concat(" 00:00:00")),
+                    new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2004-".concat(end).concat(" 00:00:00")));
 
-            SEASONS.put(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2006-07-15 00:00:00"),
-                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2007-06-01 00:00:00"));
+            SEASONS.put(new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2004-".concat(begin).concat(" 00:00:00")),
+                    new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2005-".concat(end).concat(" 00:00:00")));
 
-            SEASONS.put(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2007-07-15 00:00:00"),
-                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2008-06-01 00:00:00"));
+            SEASONS.put(new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2005-".concat(begin).concat(" 00:00:00")),
+                    new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2006-".concat(end).concat(" 00:00:00")));
 
-            SEASONS.put(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2008-07-15 00:00:00"),
-                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2009-06-01 00:00:00"));
+            SEASONS.put(new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2006-".concat(begin).concat(" 00:00:00")),
+                    new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2007-".concat(end).concat(" 00:00:00")));
 
-            SEASONS.put(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2009-07-15 00:00:00"),
-                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2010-06-01 00:00:00"));
+            SEASONS.put(new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2007-".concat(begin).concat(" 00:00:00")),
+                    new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2008-".concat(end).concat(" 00:00:00")));
 
-            SEASONS.put(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2010-07-15 00:00:00"),
-                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2011-06-01 00:00:00"));
+            SEASONS.put(new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2008-".concat(begin).concat(" 00:00:00")),
+                    new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2009-".concat(end).concat(" 00:00:00")));
 
-            SEASONS.put(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2011-07-15 00:00:00"),
-                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2012-06-01 00:00:00"));
+            SEASONS.put(new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2009-".concat(begin).concat(" 00:00:00")),
+                    new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2010-".concat(end).concat(" 00:00:00")));
 
-            SEASONS.put(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2012-07-15 00:00:00"),
-                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2013-06-01 00:00:00"));
+            SEASONS.put(new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2010-".concat(begin).concat(" 00:00:00")),
+                    new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2011-".concat(end).concat(" 00:00:00")));
 
-            SEASONS.put(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2013-07-15 00:00:00"),
-                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2014-06-01 00:00:00"));
+            SEASONS.put(new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2011-".concat(begin).concat(" 00:00:00")),
+                    new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2012-".concat(end).concat(" 00:00:00")));
 
-            SEASONS.put(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2014-07-15 00:00:00"),
-                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2015-06-01 00:00:00"));
+            SEASONS.put(new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2012-".concat(begin).concat(" 00:00:00")),
+                    new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2013-".concat(end).concat(" 00:00:00")));
 
-            SEASONS.put(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2015-07-15 00:00:00"),
-                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2016-06-01 00:00:00"));
+            SEASONS.put(new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2013-".concat(begin).concat(" 00:00:00")),
+                    new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2014-".concat(end).concat(" 00:00:00")));
 
-            SEASONS.put(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2016-07-15 00:00:00"),
-                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2017-06-01 00:00:00"));
+            SEASONS.put(new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2014-".concat(begin).concat(" 00:00:00")),
+                    new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2015-".concat(end).concat(" 00:00:00")));
 
-            SEASONS.put(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2017-07-15 00:00:00"),
-                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2018-06-01 00:00:00"));
+            SEASONS.put(new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2015-".concat(begin).concat(" 00:00:00")),
+                    new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2016-".concat(end).concat(" 00:00:00")));
 
-            SEASONS.put(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2018-07-15 00:00:00"),
-                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2019-06-01 00:00:00"));
+            SEASONS.put(new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2016-".concat(begin).concat(" 00:00:00")),
+                    new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2017-".concat(end).concat(" 00:00:00")));
 
-            SEASONS.put(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2019-07-15 00:00:00"),
-                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2020-06-01 00:00:00"));
+            SEASONS.put(new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2017-".concat(begin).concat(" 00:00:00")),
+                    new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2018-".concat(end).concat(" 00:00:00")));
 
-            SEASONS.put(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2020-07-15 00:00:00"),
-                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2021-06-01 00:00:00"));
+            SEASONS.put(new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2018-".concat(begin).concat(" 00:00:00")),
+                    new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2019-".concat(end).concat(" 00:00:00")));
 
-            SEASONS.put(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2021-07-15 00:00:00"),
-                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse("2022-06-01 00:00:00"));
+            SEASONS.put(new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2019-".concat(begin).concat(" 00:00:00")),
+                    new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2020-".concat(end).concat(" 00:00:00")));
+
+            SEASONS.put(new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2020-".concat(begin).concat(" 00:00:00")),
+                    new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2021-".concat(end).concat(" 00:00:00")));
+
+            SEASONS.put(new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2021-".concat(begin).concat(" 00:00:00")),
+                    new SimpleDateFormat(Constants.SEASON_MAPPER_FORMAT_DATE, Locale.ENGLISH)
+                            .parse("2022-".concat(end).concat(" 00:00:00")));
         } catch (Exception e) {
+            LOGGER.error(e, e);
         }
     }
 

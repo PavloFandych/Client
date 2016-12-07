@@ -17,7 +17,7 @@ import java.util.Map;
  */
 
 @Component("httpExecutor")
-public class HttpExecutor {
+public final class HttpExecutor {
     private static final Logger LOGGER = Logger.getLogger(HttpExecutor.class);
 
     static {
@@ -47,9 +47,9 @@ public class HttpExecutor {
         HttpsURLConnection.setDefaultHostnameVerifier(hv);
     }
 
-    public static String executePost(String targetURL,
-                                     String urlParameter,
-                                     Map<String, String> headerParameters) throws IOException {
+    public static String executePost(final String targetURL,
+                                     final String urlParameter,
+                                     final Map<String, String> headerParameters) throws IOException {
 
         URL url = new URL(targetURL);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -89,9 +89,9 @@ public class HttpExecutor {
         }
     }
 
-    public static String executeGet(String targetURL,
-                                    Map<String, String> headerParameters,
-                                    String urlParameter) throws IOException {
+    public static String executeGet(final String targetURL,
+                                    final Map<String, String> headerParameters,
+                                    final String urlParameter) throws IOException {
 
         StringBuilder goalUrl = new StringBuilder(targetURL);
 
@@ -134,9 +134,9 @@ public class HttpExecutor {
         }
     }
 
-    public static String executeDelete(String targetURL,
-                                       Map<String, String> headerParameters,
-                                       String urlParameter) throws IOException {
+    public static String executeDelete(final String targetURL,
+                                       final Map<String, String> headerParameters,
+                                       final String urlParameter) throws IOException {
 
         StringBuilder goalUrl = new StringBuilder(targetURL);
 
@@ -180,9 +180,9 @@ public class HttpExecutor {
         }
     }
 
-    public static String executePut(String targetURL,
-                                    Map<String, String> headerParameters,
-                                    String urlParameter) throws IOException {
+    public static String executePut(final String targetURL,
+                                    final Map<String, String> headerParameters,
+                                    final String urlParameter) throws IOException {
 
         URL url = new URL(targetURL);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();

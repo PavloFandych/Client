@@ -17,7 +17,7 @@ import java.util.Map;
  */
 
 @Repository("seasonDAO")
-public class SeasonDAO extends GenericDAO {
+public final class SeasonDAO extends GenericDAO {
     public List<Season> seasons() {
         SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(getJdbcTemplate())
                 .withProcedureName(Constants.CALL_GET_SEASON_LIST)
@@ -40,7 +40,7 @@ public class SeasonDAO extends GenericDAO {
         return (resultList != null && !resultList.isEmpty()) ? resultList : null;
     }
 
-    public Season fetchSeasonBySeasonCode(String seasonCode) {
+    public Season fetchSeasonBySeasonCode(final String seasonCode) {
         Season result = getJdbcTemplate()
                 .queryForObject(Constants.FETCH_SEASON_BY_SEASON_CODE,
                         new RowMapper<Season>() {

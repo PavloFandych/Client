@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Created by total on 11/23/16.
  */
 
-public class Season implements Serializable {
+public final class Season implements Serializable {
     private long seasonId;
     private SeasonCode seasonCode;
     private String seasonName;
