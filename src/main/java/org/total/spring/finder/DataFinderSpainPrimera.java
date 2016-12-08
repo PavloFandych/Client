@@ -53,7 +53,8 @@ public final class DataFinderSpainPrimera extends DataFinder {
 
             String api = credentials.getProperty("apiESP_PRIMERA");
             return Protocol.HTTP.name()
-                    + Constants.PROTOCOL_SEPARATOR + api;
+                    .concat(Constants.PROTOCOL_SEPARATOR)
+                    .concat(api);
         } catch (Exception e) {
             LOGGER.error(e, e);
         }

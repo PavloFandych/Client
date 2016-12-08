@@ -53,7 +53,8 @@ public final class DataFinderFrenchLigue1 extends DataFinder {
 
             String api = credentials.getProperty("apiFRA_LIGUE_1");
             return Protocol.HTTP.name()
-                    + Constants.PROTOCOL_SEPARATOR + api;
+                    .concat(Constants.PROTOCOL_SEPARATOR)
+                    .concat(api);
         } catch (Exception e) {
             LOGGER.error(e, e);
         }

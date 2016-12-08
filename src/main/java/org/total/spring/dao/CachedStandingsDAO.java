@@ -89,11 +89,12 @@ public final class CachedStandingsDAO extends GenericDAO {
                 Map<String, String> headers = new HashMap<>();
                 headers.put("Content-Type", Constants.CONTENT_TYPE_APPLICATION_JSON);
                 headers.put("Version", "V1");
-                headers.put("Authorization", getPasswordManager().encodeBase64(user + ":" + userpass));
+                headers.put("Authorization", getPasswordManager().encodeBase64(user.concat(":").concat(userpass)));
 
                 String standingsText = getHttpExecutor()
-                        .executeGet(Protocol.HTTP.name() + Constants.PROTOCOL_SEPARATOR
-                                        + credentials.getProperty("urlStandings"),
+                        .executeGet(Protocol.HTTP.name()
+                                        .concat(Constants.PROTOCOL_SEPARATOR)
+                                        .concat(credentials.getProperty("urlStandings")),
                                 headers,
                                 builder.toString());
 
@@ -107,20 +108,22 @@ public final class CachedStandingsDAO extends GenericDAO {
                         && tournament.getTournamentId() > 0
                         && standingsText != null
                         && !standingsText.isEmpty()) {
-                    LOGGER.info("SeasonId = " + season.getSeasonId() + "" +
-                            " TournamentId = " + tournament.getTournamentId() +
-                            " isStandingExists = " +
-                            isStandingExists(season.getSeasonId(), tournament.getTournamentId()));
+                    LOGGER.info("SeasonId = ".concat(String.valueOf(season.getSeasonId())
+                            .concat(" ")
+                            .concat(" TournamentId = ")
+                            .concat(String.valueOf(tournament.getTournamentId()))
+                            .concat(" isStandingExists = ")
+                            .concat(String.valueOf(isStandingExists(season.getSeasonId(), tournament.getTournamentId())))));
 
                     if (!isStandingExists(season.getSeasonId(), tournament.getTournamentId())) {
-                        LOGGER.info("saving..." + standingsText);
+                        LOGGER.info("saving...".concat(standingsText));
                         getJdbcTemplate()
                                 .update(Constants.INSERT_CACHED_STANDINGS,
                                         new Object[]{season.getSeasonId(),
                                                 tournament.getTournamentId(),
                                                 standingsText});
                     } else {
-                        LOGGER.info("updating..." + standingsText);
+                        LOGGER.info("updating...".concat(standingsText));
                         getJdbcTemplate()
                                 .update(Constants.UPDATE_CACHED_STANDINGS,
                                         standingsText,
@@ -128,8 +131,12 @@ public final class CachedStandingsDAO extends GenericDAO {
                                         tournament.getTournamentId());
                     }
                 } else {
-                    LOGGER.error("SeasonId = " + season.getSeasonId() + " tournamentId = "
-                            + tournament.getTournamentId() + standingsText);
+                    LOGGER.error("SeasonId = "
+                            .concat(String.valueOf(season.getSeasonId())
+                                    .concat(" tournamentId = ")
+                                    .concat(String.valueOf(tournament.getTournamentId()))
+                                    .concat(" ")
+                                    .concat(standingsText)));
                 }
             } else {
                 LOGGER.error("Invalid input parameters");

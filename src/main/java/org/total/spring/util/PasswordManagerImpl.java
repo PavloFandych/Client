@@ -14,8 +14,7 @@ public final class PasswordManagerImpl implements PasswordManager {
 
     @Override
     public synchronized String encodeBase64(final String input) {
-        return "Basic " +
-                new String(Base64.encodeBase64(input.getBytes()));
+        return "Basic ".concat(new String(Base64.encodeBase64(input.getBytes())));
     }
 
     @Override

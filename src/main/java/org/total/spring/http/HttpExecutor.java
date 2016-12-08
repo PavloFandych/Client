@@ -34,8 +34,10 @@ public final class HttpExecutor {
         HostnameVerifier hv = new HostnameVerifier() {
             @Override
             public boolean verify(String urlHostName, SSLSession session) {
-                LOGGER.warn("Warning: URL Host: " + urlHostName + " vs. "
-                        + session.getPeerHost());
+                LOGGER.warn("Warning: URL Host: "
+                        .concat(urlHostName)
+                        .concat(" vs. ")
+                        .concat(String.valueOf(session.getPeerHost())));
                 return true;
             }
         };
