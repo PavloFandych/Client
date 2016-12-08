@@ -46,8 +46,18 @@ public final class DataFinderItalianSerieA extends DataFinder {
 
     @Override
     protected String getUrl() {
-        return Protocol.HTTP.name()
-                + Constants.API_ITA_SERIA_A;
+        try {
+            Properties credentials = new Properties();
+            credentials.load(DataFinderItalianSerieA.class.getClassLoader()
+                    .getResourceAsStream("credentials.properties"));
+
+            String api = credentials.getProperty("apiITA_SERIA_A");
+            return Protocol.HTTP.name()
+                    + Constants.PROTOCOL_SEPARATOR + api;
+        } catch (Exception e) {
+            LOGGER.error(e, e);
+        }
+        return null;
     }
 
     @Override

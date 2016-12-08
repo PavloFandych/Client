@@ -46,8 +46,18 @@ public final class DataFinderFrenchLigue1 extends DataFinder {
 
     @Override
     protected final String getUrl() {
-        return Protocol.HTTP.name()
-                + Constants.API_FRA_LIGUE_1;
+        try {
+            Properties credentials = new Properties();
+            credentials.load(DataFinderFrenchLigue1.class.getClassLoader()
+                    .getResourceAsStream("credentials.properties"));
+
+            String api = credentials.getProperty("apiFRA_LIGUE_1");
+            return Protocol.HTTP.name()
+                    + Constants.PROTOCOL_SEPARATOR + api;
+        } catch (Exception e) {
+            LOGGER.error(e, e);
+        }
+        return null;
     }
 
     @Override

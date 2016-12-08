@@ -58,7 +58,7 @@ public abstract class DataFinder {
             headers.put(credentials.getProperty("footballDataOrgTokenName"),
                     credentials.getProperty("footballDataOrgTokenValue"));
 
-            LOGGER.debug("URL: " + getUrl());
+            LOGGER.error("URL: " + getUrl());
 
             String response = getHttpExecutor()
                     .executeGet(getUrl(), headers, "");

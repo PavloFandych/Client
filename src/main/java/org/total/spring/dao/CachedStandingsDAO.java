@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.total.spring.entity.Season;
 import org.total.spring.entity.Tournament;
+import org.total.spring.entity.enums.Protocol;
 import org.total.spring.http.HttpExecutor;
 import org.total.spring.util.Constants;
 import org.total.spring.util.PasswordManager;
@@ -90,7 +91,11 @@ public final class CachedStandingsDAO extends GenericDAO {
                 headers.put("Version", "V1");
                 headers.put("Authorization", getPasswordManager().encodeBase64(user + ":" + userpass));
 
-                String standingsText = getHttpExecutor().executeGet(Constants.URL_STANDINGS, headers, builder.toString());
+                String standingsText = getHttpExecutor()
+                        .executeGet(Protocol.HTTP.name() + Constants.PROTOCOL_SEPARATOR
+                                        + credentials.getProperty("urlStandings"),
+                                headers,
+                                builder.toString());
 
                 Season season = getSeasonDAO().fetchSeasonBySeasonCode(seasonCode);
                 Tournament tournament = getTournamentDAO().fetchTournamentByTournamentCode(tournamentCode);

@@ -46,8 +46,18 @@ public final class DataFinderSpainPrimera extends DataFinder {
 
     @Override
     protected final String getUrl() {
-        return Protocol.HTTP.name()
-                + Constants.API_ESP_PRIMERA;
+        try {
+            Properties credentials = new Properties();
+            credentials.load(DataFinderSpainPrimera.class.getClassLoader()
+                    .getResourceAsStream("credentials.properties"));
+
+            String api = credentials.getProperty("apiESP_PRIMERA");
+            return Protocol.HTTP.name()
+                    + Constants.PROTOCOL_SEPARATOR + api;
+        } catch (Exception e) {
+            LOGGER.error(e, e);
+        }
+        return null;
     }
 
     @Override

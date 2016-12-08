@@ -46,8 +46,18 @@ public final class DataFinderBundesLiga1 extends DataFinder {
 
     @Override
     protected final String getUrl() {
-        return Protocol.HTTP.name()
-                + Constants.API_BUNDESLIGA_1;
+        try {
+            Properties credentials = new Properties();
+            credentials.load(DataFinderBundesLiga1.class.getClassLoader()
+                    .getResourceAsStream("credentials.properties"));
+
+            String api = credentials.getProperty("apiBUNDESLIGA_1");
+            return Protocol.HTTP.name()
+                    + Constants.PROTOCOL_SEPARATOR + api;
+        } catch (Exception e) {
+            LOGGER.error(e, e);
+        }
+        return null;
     }
 
     @Override
