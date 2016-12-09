@@ -37,6 +37,10 @@ public final class SpanishTeamDAO extends GenericDAO {
         SPAIN_TEAMS_MAPPING.put("UD Las Palmas", "ESP014");
     }
 
+    public static Map<String, String> getSpainTeamsMapping() {
+        return SPAIN_TEAMS_MAPPING;
+    }
+
     public Team findByTeamName(final String teamName) {
         return findTeam(teamName, SPAIN_TEAMS_MAPPING);
     }

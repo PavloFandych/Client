@@ -37,6 +37,10 @@ public final class FrenchTeamDAO extends GenericDAO {
         FRANCE_TEAMS_MAPPING.put("Toulouse FC", "FRA026");
     }
 
+    public static Map<String, String> getFranceTeamsMapping() {
+        return FRANCE_TEAMS_MAPPING;
+    }
+
     public Team findByTeamName(final String teamName) {
         return findTeam(teamName, FRANCE_TEAMS_MAPPING);
     }

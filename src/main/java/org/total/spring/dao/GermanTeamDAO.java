@@ -33,6 +33,10 @@ public final class GermanTeamDAO extends GenericDAO {
         GERMANY_TEAMS_MAPPING.put("VfB Stuttgart", "DEU219");
     }
 
+    public static Map<String, String> getGermanyTeamsMapping() {
+        return GERMANY_TEAMS_MAPPING;
+    }
+
     public Team findByTeamName(final String teamName) {
         return findTeam(teamName, GERMANY_TEAMS_MAPPING);
     }

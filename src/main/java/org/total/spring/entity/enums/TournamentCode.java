@@ -15,5 +15,6 @@ public enum TournamentCode {
     ESP_PRIMERA,
     ESP_SEGUNDA,
     FRA_LIGUE_1,
-    FRA_LIGUE_2
+    FRA_LIGUE_2,
+    CHAMPIONS_LEAGUE
 }

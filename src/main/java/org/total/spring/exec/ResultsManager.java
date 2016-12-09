@@ -83,6 +83,12 @@ public final class ResultsManager {
                                         TournamentCode.FRA_LIGUE_1.name());
                                 break;
                             }
+                            case CHAMPIONS_LEAGUE: {
+                                ChampionsLeagueMaster championsLeagueMaster = (ChampionsLeagueMaster) context
+                                        .getBean("championsLeagueMaster");
+                                championsLeagueMaster.populateResults();
+                                break;
+                            }
                             default: {
                                 LOGGER.error(Constants.INVALID_TOURNAMENT_CODE);
                             }

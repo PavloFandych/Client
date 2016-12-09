@@ -37,6 +37,10 @@ public final class ItalianTeamDAO extends GenericDAO {
         ITALY_TEAMS_MAPPING.put("SSC Napoli", "ITA062");
     }
 
+    public static Map<String, String> getItalyTeamsMapping() {
+        return ITALY_TEAMS_MAPPING;
+    }
+
     public Team findByTeamName(final String teamName) {
         return findTeam(teamName, ITALY_TEAMS_MAPPING);
     }
