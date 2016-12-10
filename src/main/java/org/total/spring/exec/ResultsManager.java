@@ -9,6 +9,9 @@ import org.total.spring.masters.*;
 import org.total.spring.util.Constants;
 
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
+
+/*ENG_PREM_LEAGUE DEU_BUNDESLIGA_1 ITA_SERIA_A ESP_PRIMERA FRA_LIGUE_1*/
 
 public final class ResultsManager {
     private static final Logger LOGGER = Logger.getLogger(ResultsManager.class);
@@ -97,12 +100,17 @@ public final class ResultsManager {
                 }
 
                 long end = System.nanoTime();
-                LOGGER.info("Duration: " + (end - start) / 1000000000 + " sec");
+
+                String duration = String.format("%d min, %d sec",
+                        TimeUnit.NANOSECONDS.toMinutes((end - start)),
+                        TimeUnit.NANOSECONDS.toSeconds((end - start)) -
+                                TimeUnit.MINUTES.toSeconds(TimeUnit.NANOSECONDS.toMinutes((end - start)))
+                );
+                LOGGER.info("Duration: ".concat(duration));
             } catch (Exception e) {
                 LOGGER.error(e, e);
             }
-        }
-        else {
+        } else {
             LOGGER.error(Constants.NO_TOURNAMENT_CODE_FOUND);
         }
     }
