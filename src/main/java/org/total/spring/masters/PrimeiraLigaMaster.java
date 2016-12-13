@@ -14,20 +14,20 @@ import java.util.TreeSet;
  * Created by pavlo.fandych on 12/13/2016.
  */
 
-@Component("eredivisieMaster")
-public final class EredivisieMaster implements Master {
+@Component("primeiraLigaMaster")
+public final class PrimeiraLigaMaster implements Master {
     @Autowired
-    private DataFinder dataFinderEredivisie;
+    private DataFinder dataFinderPortugalPrimeiraLiga;
 
     @Autowired
     private ResultDAO resultDAO;
 
-    public DataFinder getDataFinderEredivisie() {
-        return dataFinderEredivisie;
+    public DataFinder getDataFinderPortugalPrimeiraLiga() {
+        return dataFinderPortugalPrimeiraLiga;
     }
 
-    public void setDataFinderEredivisie(DataFinder dataFinderEredivisie) {
-        this.dataFinderEredivisie = dataFinderEredivisie;
+    public void setDataFinderPortugalPrimeiraLiga(DataFinder dataFinderPortugalPrimeiraLiga) {
+        this.dataFinderPortugalPrimeiraLiga = dataFinderPortugalPrimeiraLiga;
     }
 
     public ResultDAO getResultDAO() {
@@ -42,7 +42,7 @@ public final class EredivisieMaster implements Master {
     public void populateResults() {
         TreeSet<Result> savedResults = getResultDAO()
                 .results();
-        for (Result item : getDataFinderEredivisie().findResults()) {
+        for (Result item : getDataFinderPortugalPrimeiraLiga().findResults()) {
             if (!savedResults.contains(item)) {
                 getResultDAO().insertResult(item);
             }
@@ -51,8 +51,8 @@ public final class EredivisieMaster implements Master {
 
     public void populateResults(final SeasonCode seasonCode) {
         TreeSet<Result> savedResults = getResultDAO()
-                .findResultsBySeasonCodeAndTournamentCode(seasonCode, TournamentCode.NLD_EREDIVISIE);
-        for (Result item : getDataFinderEredivisie().findResults()) {
+                .findResultsBySeasonCodeAndTournamentCode(seasonCode, TournamentCode.PRT_PRIMEIRA_LIGA);
+        for (Result item : getDataFinderPortugalPrimeiraLiga().findResults()) {
             if (!savedResults.contains(item)) {
                 getResultDAO().insertResult(item);
             }

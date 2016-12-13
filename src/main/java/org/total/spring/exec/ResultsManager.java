@@ -94,6 +94,14 @@ public final class ResultsManager {
                                         TournamentCode.NLD_EREDIVISIE.name());
                                 break;
                             }
+                            case PRT_PRIMEIRA_LIGA: {
+                                PrimeiraLigaMaster primeiraLigaMaster = (PrimeiraLigaMaster) context
+                                        .getBean("primeiraLigaMaster");
+                                primeiraLigaMaster.populateResults(SeasonCode.valueOf(seasonCode));
+                                cachedStandingsMaster.populateResults(seasonCode,
+                                        TournamentCode.PRT_PRIMEIRA_LIGA.name());
+                                break;
+                            }
                             case CHAMPIONS_LEAGUE: {
                                 ChampionsLeagueMaster championsLeagueMaster = (ChampionsLeagueMaster) context
                                         .getBean("championsLeagueMaster");

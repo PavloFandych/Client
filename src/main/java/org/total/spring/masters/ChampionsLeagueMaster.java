@@ -13,7 +13,7 @@ import java.util.List;
  */
 
 @Component("championsLeagueMaster")
-public class ChampionsLeagueMaster implements Master {
+public final class ChampionsLeagueMaster implements Master {
     private static final Logger LOGGER = Logger.getLogger(ChampionsLeagueMaster.class);
 
     @Autowired

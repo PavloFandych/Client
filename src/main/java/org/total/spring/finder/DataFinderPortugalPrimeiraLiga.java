@@ -4,7 +4,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.total.spring.dao.DutchTeamDAO;
+import org.total.spring.dao.PortugalTeamDAO;
 import org.total.spring.dao.TournamentDAO;
 import org.total.spring.entity.Result;
 import org.total.spring.entity.Team;
@@ -20,20 +20,20 @@ import java.util.*;
  * Created by pavlo.fandych on 12/13/2016.
  */
 
-@Repository("dataFinderEredivisie")
-public final class DataFinderEredivisie extends DataFinder {
+@Repository("dataFinderPortugalPrimeiraLiga")
+public final class DataFinderPortugalPrimeiraLiga extends DataFinder {
     @Autowired
-    private DutchTeamDAO dutchTeamDAO;
+    private PortugalTeamDAO portugalTeamDAO;
 
     @Autowired
     private TournamentDAO tournamentDAO;
 
-    public DutchTeamDAO getDutchTeamDAO() {
-        return dutchTeamDAO;
+    public PortugalTeamDAO getPortugalTeamDAO() {
+        return portugalTeamDAO;
     }
 
-    public void setDutchTeamDAO(DutchTeamDAO dutchTeamDAO) {
-        this.dutchTeamDAO = dutchTeamDAO;
+    public void setPortugalTeamDAO(PortugalTeamDAO portugalTeamDAO) {
+        this.portugalTeamDAO = portugalTeamDAO;
     }
 
     public TournamentDAO getTournamentDAO() {
@@ -51,7 +51,7 @@ public final class DataFinderEredivisie extends DataFinder {
             credentials.load(DataFinderEredivisie.class.getClassLoader()
                     .getResourceAsStream("credentials.properties"));
 
-            String api = credentials.getProperty("apiNLD_EREDIVISIE");
+            String api = credentials.getProperty("apiPRT_PRIMEIRA_LIGA");
             return Protocol.HTTP.name()
                     .concat(Constants.PROTOCOL_SEPARATOR)
                     .concat(api);
@@ -72,15 +72,15 @@ public final class DataFinderEredivisie extends DataFinder {
             Iterator<JSONObject> iterator = fixtures.iterator();
 
             Tournament tournament = getTournamentDAO()
-                    .fetchTournamentByTournamentCode(TournamentCode.NLD_EREDIVISIE.name());
+                    .fetchTournamentByTournamentCode(TournamentCode.PRT_PRIMEIRA_LIGA.name());
 
             while (iterator.hasNext()) {
                 JSONObject item = iterator.next();
                 JSONObject result = (JSONObject) item.get("result");
 
-                Team homeTeam = getDutchTeamDAO()
+                Team homeTeam = getPortugalTeamDAO()
                         .findByTeamName((String) item.get(Constants.HOME_TEAM_NAME));
-                Team awayTeam = getDutchTeamDAO()
+                Team awayTeam = getPortugalTeamDAO()
                         .findByTeamName((String) item.get(Constants.AWAY_TEAM_NAME));
 
                 if (item.get("date") != null

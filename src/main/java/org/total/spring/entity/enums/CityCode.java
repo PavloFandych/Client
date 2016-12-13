@@ -422,5 +422,19 @@ public enum CityCode {
     HAGU,
     ZWLE,
     KERK,
-    DVTR
+    DVTR,
+    LSBN,
+    PRTO,
+    BRGA,
+    GMRS,
+    VLDC,
+    CAVS,
+    FNCL,
+    STBL,
+    ESTL,
+    ARCA,
+    PDFE,
+    MDCG,
+    FARO,
+    TNDL
 }
