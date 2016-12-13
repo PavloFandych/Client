@@ -34,6 +34,10 @@ public final class ChampionsLeagueDAO extends GenericDAO {
         for (Map.Entry<String, String> entry : SpanishTeamDAO.getSpainTeamsMapping().entrySet()) {
             CHAMPIONS_LEAGUE_TEAMS_MAPPING.put(entry.getKey(), entry.getValue());
         }
+
+        for (Map.Entry<String, String> entry : DutchTeamDAO.getNetherlandsTeamsMapping().entrySet()) {
+            CHAMPIONS_LEAGUE_TEAMS_MAPPING.put(entry.getKey(), entry.getValue());
+        }
     }
 
     public Team findByTeamName(final String teamName) {

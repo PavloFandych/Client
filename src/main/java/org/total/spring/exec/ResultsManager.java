@@ -86,6 +86,14 @@ public final class ResultsManager {
                                         TournamentCode.FRA_LIGUE_1.name());
                                 break;
                             }
+                            case NLD_EREDIVISIE: {
+                                EredivisieMaster eredivisieMaster = (EredivisieMaster) context
+                                        .getBean("eredivisieMaster");
+                                eredivisieMaster.populateResults(SeasonCode.valueOf(seasonCode));
+                                cachedStandingsMaster.populateResults(seasonCode,
+                                        TournamentCode.NLD_EREDIVISIE.name());
+                                break;
+                            }
                             case CHAMPIONS_LEAGUE: {
                                 ChampionsLeagueMaster championsLeagueMaster = (ChampionsLeagueMaster) context
                                         .getBean("championsLeagueMaster");
