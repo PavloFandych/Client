@@ -42,6 +42,46 @@ public final class ChampionsLeagueDAO extends GenericDAO {
         for (Map.Entry<String, String> entry : PortugalTeamDAO.getPortugalTeamsMapping().entrySet()) {
             CHAMPIONS_LEAGUE_TEAMS_MAPPING.put(entry.getKey(), entry.getValue());
         }
+
+        for (Map.Entry<String, String> entry : SwitzerlandTeamDAO.getSwitzerlandTeamsMapping().entrySet()) {
+            CHAMPIONS_LEAGUE_TEAMS_MAPPING.put(entry.getKey(), entry.getValue());
+        }
+
+        for (Map.Entry<String, String> entry : BulgarianTeamDAO.getBulgariaTeamsMapping().entrySet()) {
+            CHAMPIONS_LEAGUE_TEAMS_MAPPING.put(entry.getKey(), entry.getValue());
+        }
+
+        for (Map.Entry<String, String> entry : TurkeyTeamDAO.getTurkeyTeamsMapping().entrySet()) {
+            CHAMPIONS_LEAGUE_TEAMS_MAPPING.put(entry.getKey(), entry.getValue());
+        }
+
+        for (Map.Entry<String, String> entry : ScotlandTeamDAO.getScotlandTeamsMapping().entrySet()) {
+            CHAMPIONS_LEAGUE_TEAMS_MAPPING.put(entry.getKey(), entry.getValue());
+        }
+
+        for (Map.Entry<String, String> entry : UkrainianTeamDAO.getUkraineTeamsMapping().entrySet()) {
+            CHAMPIONS_LEAGUE_TEAMS_MAPPING.put(entry.getKey(), entry.getValue());
+        }
+
+        for (Map.Entry<String, String> entry : RussianTeamDAO.getRussiaTeamsMapping().entrySet()) {
+            CHAMPIONS_LEAGUE_TEAMS_MAPPING.put(entry.getKey(), entry.getValue());
+        }
+
+        for (Map.Entry<String, String> entry : CroatianTeamDAO.getCroatiaTeamsMapping().entrySet()) {
+            CHAMPIONS_LEAGUE_TEAMS_MAPPING.put(entry.getKey(), entry.getValue());
+        }
+
+        for (Map.Entry<String, String> entry : BelgiumTeamDAO.getBelgiumTeamsMapping().entrySet()) {
+            CHAMPIONS_LEAGUE_TEAMS_MAPPING.put(entry.getKey(), entry.getValue());
+        }
+
+        for (Map.Entry<String, String> entry : DenmarkTeamDAO.getDenmarkTeamsMapping().entrySet()) {
+            CHAMPIONS_LEAGUE_TEAMS_MAPPING.put(entry.getKey(), entry.getValue());
+        }
+
+        for (Map.Entry<String, String> entry : PolandTeamDAO.getPolandTeamsMapping().entrySet()) {
+            CHAMPIONS_LEAGUE_TEAMS_MAPPING.put(entry.getKey(), entry.getValue());
+        }
     }
 
     public Team findByTeamName(final String teamName) {

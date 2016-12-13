@@ -89,7 +89,7 @@ public final class DataFinderChampionsLeague extends DataFinder {
                         && item.get(Constants.MATCH_DAY) != null
                         && homeTeam != null
                         && awayTeam != null
-                        && item.get("status").equals(Constants.MATCH_STATUS_FINISHED)
+                        && (item.get("status").equals(Constants.MATCH_STATUS_FINISHED) || item.get("status").equals("FT"))
                         && tournament != null) {
                     String dateString = ((String) item.get("date")).replace('T', ' ');
                     Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",

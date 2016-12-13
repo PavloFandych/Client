@@ -436,5 +436,15 @@ public enum CityCode {
     PDFE,
     MDCG,
     FARO,
-    TNDL
+    TNDL,
+    BASL,
+    RZGD,
+    ISTB,
+    GLGW,
+    RSTV,
+    ZGRB,
+    MSCW,
+    BRUG,
+    CPHG,
+    WRSW
 }

@@ -11,7 +11,7 @@ import org.total.spring.util.Constants;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-/*ENG_PREM_LEAGUE DEU_BUNDESLIGA_1 ITA_SERIA_A ESP_PRIMERA FRA_LIGUE_1*/
+/*ENG_PREM_LEAGUE DEU_BUNDESLIGA_1 ITA_SERIA_A ESP_PRIMERA FRA_LIGUE_1 NLD_EREDIVISIE PRT_PRIMEIRA_LIGA*/
 
 public final class ResultsManager {
     private static final Logger LOGGER = Logger.getLogger(ResultsManager.class);
@@ -105,7 +105,7 @@ public final class ResultsManager {
                             case CHAMPIONS_LEAGUE: {
                                 ChampionsLeagueMaster championsLeagueMaster = (ChampionsLeagueMaster) context
                                         .getBean("championsLeagueMaster");
-                                championsLeagueMaster.populateResults();
+                                championsLeagueMaster.populateResults(SeasonCode.valueOf(seasonCode));
                                 break;
                             }
                             default: {
