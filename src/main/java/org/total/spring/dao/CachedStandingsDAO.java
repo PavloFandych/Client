@@ -1,6 +1,7 @@
 package org.total.spring.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Repository;
 import org.total.spring.entity.Season;
 import org.total.spring.entity.Tournament;
@@ -63,6 +64,10 @@ public final class CachedStandingsDAO extends GenericDAO {
         this.tournamentDAO = tournamentDAO;
     }
 
+    @CacheEvict(value = "structuredStandings",
+            key = "#seasonCode.concat(‘-’).concat(#tournamentCode)",
+            cacheManager = "springCashManager"
+    )
     public void saveStandings(final String seasonCode, final String tournamentCode) {
         try {
             Properties credentials = new Properties();

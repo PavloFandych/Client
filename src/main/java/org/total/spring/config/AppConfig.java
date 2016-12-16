@@ -1,9 +1,13 @@
 package org.total.spring.config;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import net.sf.ehcache.config.CacheConfiguration;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.total.spring.util.Constants;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -30,6 +34,35 @@ public class AppConfig {
         } catch (Exception e) {
         }
         return dataSource;
+    }
+
+    @Bean(destroyMethod = "shutdown")
+    public net.sf.ehcache.CacheManager ehCacheManager() {
+        CacheConfiguration cacheConfiguration = new CacheConfiguration();
+        cacheConfiguration.setName("applicationCache");
+
+
+        cacheConfiguration.setMaxEntriesLocalHeap(Constants.MAX_ENTRIES_LOCAL_HEAP);
+        cacheConfiguration.setMaxEntriesLocalDisk(Constants.MAX_ENTRIES_LOCAL_DISK);
+
+        cacheConfiguration.setMemoryStoreEvictionPolicy("LRU");
+
+        /*
+        * timeToIdle – The maximum number of seconds
+        * an element can exist in the cache
+        * without being accessed
+        * */
+        cacheConfiguration.setTimeToIdleSeconds(Constants.TIME_TO_IDLE_SECONDS);
+
+        net.sf.ehcache.config.Configuration config = new net.sf.ehcache.config.Configuration();
+        config.addCache(cacheConfiguration);
+
+        return net.sf.ehcache.CacheManager.newInstance(config);
+    }
+
+    @Bean(name = "springCashManager")
+    public CacheManager cacheManager() {
+        return new EhCacheCacheManager(ehCacheManager());
     }
 
     @Bean

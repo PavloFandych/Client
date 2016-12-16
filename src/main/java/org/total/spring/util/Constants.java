@@ -48,4 +48,8 @@ public final class Constants {
     public static final String MATCH_STATUS_FINISHED = "FINISHED";
 
     public static final String SEASON_MAPPER_FORMAT_DATE = "yyyy-MM-dd HH:mm:ss";
+
+    public static final int MAX_ENTRIES_LOCAL_HEAP = 10000;
+    public static final int MAX_ENTRIES_LOCAL_DISK = 1000000;
+    public static final int TIME_TO_IDLE_SECONDS = 60;
 }
