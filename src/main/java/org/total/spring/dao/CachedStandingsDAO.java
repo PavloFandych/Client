@@ -64,8 +64,8 @@ public final class CachedStandingsDAO extends GenericDAO {
         this.tournamentDAO = tournamentDAO;
     }
 
-    @CacheEvict(value = "structuredStandings",
-            key = "#seasonCode.concat(‘-’).concat(#tournamentCode)",
+    @CacheEvict(value = "applicationCache",
+            key = "#seasonCode.concat(#tournamentCode)",
             cacheManager = "springCashManager"
     )
     public void saveStandings(final String seasonCode, final String tournamentCode) {

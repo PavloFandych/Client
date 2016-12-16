@@ -41,7 +41,6 @@ public class AppConfig {
         CacheConfiguration cacheConfiguration = new CacheConfiguration();
         cacheConfiguration.setName("applicationCache");
 
-
         cacheConfiguration.setMaxEntriesLocalHeap(Constants.MAX_ENTRIES_LOCAL_HEAP);
         cacheConfiguration.setMaxEntriesLocalDisk(Constants.MAX_ENTRIES_LOCAL_DISK);
 
