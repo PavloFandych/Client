@@ -29,6 +29,9 @@ public final class ResultsManager {
                 CachedStandingsMaster cachedStandingsMaster = (CachedStandingsMaster) context
                         .getBean("cachedStandingsMaster");
 
+                CachedTeamsListMaster cachedTeamsListMaster = (CachedTeamsListMaster) context
+                        .getBean("cachedTeamsListMaster");
+
                 Properties credentials = new Properties();
                 credentials.load(ResultsManager.class.getClassLoader()
                         .getResourceAsStream("credentials.properties"));
@@ -52,6 +55,8 @@ public final class ResultsManager {
                                 bundesLigaMaster.populateResults(SeasonCode.valueOf(seasonCode));
                                 cachedStandingsMaster.populateResults(seasonCode,
                                         TournamentCode.DEU_BUNDESLIGA_1.name());
+                                cachedTeamsListMaster.populateResults(seasonCode,
+                                        TournamentCode.DEU_BUNDESLIGA_1.name());
                                 break;
                             }
                             case ENG_PREM_LEAGUE: {
@@ -59,6 +64,8 @@ public final class ResultsManager {
                                         .getBean("premierLeagueMaster"));
                                 premierLeagueMaster.populateResults(SeasonCode.valueOf(seasonCode));
                                 cachedStandingsMaster.populateResults(seasonCode,
+                                        TournamentCode.ENG_PREM_LEAGUE.name());
+                                cachedTeamsListMaster.populateResults(seasonCode,
                                         TournamentCode.ENG_PREM_LEAGUE.name());
                                 break;
                             }
@@ -68,6 +75,8 @@ public final class ResultsManager {
                                 serieAMaster.populateResults(SeasonCode.valueOf(seasonCode));
                                 cachedStandingsMaster.populateResults(seasonCode,
                                         TournamentCode.ITA_SERIA_A.name());
+                                cachedTeamsListMaster.populateResults(seasonCode,
+                                        TournamentCode.ITA_SERIA_A.name());
                                 break;
                             }
                             case ESP_PRIMERA: {
@@ -75,6 +84,8 @@ public final class ResultsManager {
                                         .getBean("laLigaMaster");
                                 laLigaMaster.populateResults(SeasonCode.valueOf(seasonCode));
                                 cachedStandingsMaster.populateResults(seasonCode,
+                                        TournamentCode.ESP_PRIMERA.name());
+                                cachedTeamsListMaster.populateResults(seasonCode,
                                         TournamentCode.ESP_PRIMERA.name());
                                 break;
                             }
@@ -84,6 +95,8 @@ public final class ResultsManager {
                                 ligue1Master.populateResults(SeasonCode.valueOf(seasonCode));
                                 cachedStandingsMaster.populateResults(seasonCode,
                                         TournamentCode.FRA_LIGUE_1.name());
+                                cachedTeamsListMaster.populateResults(seasonCode,
+                                        TournamentCode.FRA_LIGUE_1.name());
                                 break;
                             }
                             case NLD_EREDIVISIE: {
@@ -92,6 +105,8 @@ public final class ResultsManager {
                                 eredivisieMaster.populateResults(SeasonCode.valueOf(seasonCode));
                                 cachedStandingsMaster.populateResults(seasonCode,
                                         TournamentCode.NLD_EREDIVISIE.name());
+                                cachedTeamsListMaster.populateResults(seasonCode,
+                                        TournamentCode.NLD_EREDIVISIE.name());
                                 break;
                             }
                             case PRT_PRIMEIRA_LIGA: {
@@ -99,6 +114,8 @@ public final class ResultsManager {
                                         .getBean("primeiraLigaMaster");
                                 primeiraLigaMaster.populateResults(SeasonCode.valueOf(seasonCode));
                                 cachedStandingsMaster.populateResults(seasonCode,
+                                        TournamentCode.PRT_PRIMEIRA_LIGA.name());
+                                cachedTeamsListMaster.populateResults(seasonCode,
                                         TournamentCode.PRT_PRIMEIRA_LIGA.name());
                                 break;
                             }

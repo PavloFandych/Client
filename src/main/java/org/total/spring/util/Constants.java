@@ -20,10 +20,19 @@ public final class Constants {
     public static final String INSERT_CACHED_STANDINGS = "INSERT INTO GoalDB.Standings" +
             " (seasonId, tournamentId, standing) VALUES (?, ?, ?)";
 
+    public static final String INSERT_CACHED_TEAMS_LIST = "INSERT INTO GoalDB.TeamsList" +
+            " (seasonId, tournamentId, list) VALUES (?, ?, ?)";
+
     public static final String UPDATE_CACHED_STANDINGS = "UPDATE GoalDB.Standings set standing = ?" +
             " WHERE seasonId = ? AND tournamentId = ?";
 
-    public static final String COUNT_CACHED_STANDINGS = "SELECT COUNT(*) FROM Standings " +
+    public static final String UPDATE_CACHED_TEAMS_LIST = "UPDATE GoalDB.TeamsList set list = ?" +
+            " WHERE seasonId = ? AND tournamentId = ?";
+
+    public static final String COUNT_CACHED_STANDINGS = "SELECT COUNT(*) FROM GoalDB.Standings " +
+            "WHERE seasonId = ? AND tournamentId = ?";
+
+    public static final String COUNT_CACHED_TEAMS_LIST = "SELECT COUNT(*) FROM GoalDB.TeamsList " +
             "WHERE seasonId = ? AND tournamentId = ?";
 
     public static final String FETCH_SEASON_BY_SEASON_CODE = "SELECT * FROM GoalDB.Season WHERE seasonCode = ?";
