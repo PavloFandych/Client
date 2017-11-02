@@ -23,7 +23,7 @@ public final class ResultDAO extends GenericDAO {
     public SortedSet<Result> results() {
         final SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(getJdbcTemplate())
                 .withProcedureName(Constants.CALL_FETCH_ALL_RESULTS_SQL)
-                .returningResultSet("results", (java.sql.ResultSet resultSet, int i) -> {
+                .returningResultSet("results", (resultSet, i) -> {
                     final Result result = new Result();
 
                     try {
@@ -51,7 +51,7 @@ public final class ResultDAO extends GenericDAO {
     }
 
     public SortedSet<Result> findResultsBySeasonCodeAndTournamentCode(final SeasonCode seasonCode,
-            final TournamentCode tournamentCode) {
+                                                                      final TournamentCode tournamentCode) {
         final SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(getJdbcTemplate())
                 .withProcedureName(Constants.CALL_GET_ALL_RESULTS_BY_SEASON_CODE_AND_TOURNAMENT_CODE)
                 .returningResultSet("resultsBySeasonCodeAndTournamentCode", (java.sql.ResultSet resultSet, int i) -> {

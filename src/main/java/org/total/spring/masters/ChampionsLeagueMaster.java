@@ -52,10 +52,8 @@ public final class ChampionsLeagueMaster implements Master {
     public void populateResults(final SeasonCode seasonCode) {
         final SortedSet<Result> savedResults = getResultDAO()
                 .findResultsBySeasonCodeAndTournamentCode(seasonCode, TournamentCode.CHAMPIONS_LEAGUE);
-        for (Result item : getDataFinderChampionsLeague().findResults()) {
-            if (!savedResults.contains(item)) {
-                getResultDAO().insertResult(item);
-            }
-        }
+
+        getDataFinderChampionsLeague().findResults().stream().filter(result -> !savedResults.contains(result))
+                .forEach(result -> getResultDAO().insertResult(result));
     }
 }

@@ -8,7 +8,6 @@ import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.total.spring.entity.Team;
 import org.total.spring.util.Constants;
 
-import java.sql.ResultSet;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +30,7 @@ public abstract class GenericDAO {
         if (mapping.containsKey(teamName)) {
             final SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(getJdbcTemplate())
                     .withProcedureName(Constants.CALL_FETCH_TEAM_BY_TEAM_CODE)
-                    .returningResultSet("team", (ResultSet resultSet, int i) -> {
+                    .returningResultSet("team", (resultSet, i) -> {
                         final Team team = new Team();
                         team.setTeamId(resultSet.getLong("teamId"));
                         team.setTeamCode(resultSet.getString("teamCode"));
