@@ -5,5 +5,6 @@ package org.total.spring.masters;
  */
 
 public interface Master {
-    public void populateResults();
+
+    void populateResults();
 }

@@ -12,6 +12,7 @@ import java.util.Map;
 
 @Repository("turkeyTeamDAO")
 public final class TurkeyTeamDAO extends GenericDAO {
+
     private static final Map<String, String> TURKEY_TEAMS_MAPPING = new HashMap<>();
 
     static {

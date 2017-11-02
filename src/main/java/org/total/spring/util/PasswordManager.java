@@ -1,9 +1,10 @@
 package org.total.spring.util;
 
 public interface PasswordManager {
-    public String encodeMD5(final String password);
 
-    public String encodeBase64(final String input);
+    String encodeMD5(final String password);
 
-    public String decodeBase64(final String input);
+    String encodeBase64(final String input);
+
+    String decodeBase64(final String input);
 }

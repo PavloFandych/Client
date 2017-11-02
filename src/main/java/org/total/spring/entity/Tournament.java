@@ -10,10 +10,15 @@ import java.io.Serializable;
  */
 
 public final class Tournament implements Serializable {
+
     private long tournamentId;
+
     private TournamentCode tournamentCode;
+
     private String tournamentName;
+
     private TournamentType tournamentType;
+
     private long countryId;
 
     public long getTournamentId() {
@@ -58,12 +63,7 @@ public final class Tournament implements Serializable {
 
     @Override
     public String toString() {
-        return "Tournament{" +
-                "tournamentId=" + tournamentId +
-                ", tournamentCode=" + tournamentCode +
-                ", tournamentName='" + tournamentName + '\'' +
-                ", tournamentType=" + tournamentType +
-                ", countryId=" + countryId +
-                '}';
+        return "Tournament{" + "tournamentId=" + tournamentId + ", tournamentCode=" + tournamentCode + ", tournamentName='"
+                + tournamentName + '\'' + ", tournamentType=" + tournamentType + ", countryId=" + countryId + '}';
     }
 }

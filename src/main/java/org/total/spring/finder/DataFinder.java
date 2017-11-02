@@ -20,6 +20,7 @@ import java.util.Properties;
  */
 
 public abstract class DataFinder {
+
     protected static final Logger LOGGER = Logger.getLogger(DataFinder.class);
 
     @Autowired
@@ -50,40 +51,31 @@ public abstract class DataFinder {
 
     protected final JSONArray getFixtures() {
         try {
-            Properties credentials = new Properties();
-            credentials.load(DataFinder.class.getClassLoader()
-                    .getResourceAsStream("credentials.properties"));
+            final Properties credentials = new Properties();
+            credentials.load(DataFinder.class.getClassLoader().getResourceAsStream("credentials.properties"));
 
-            Map<String, String> headers = new HashMap<>();
+            final Map<String, String> headers = new HashMap<>();
             headers.put(credentials.getProperty("footballDataOrgTokenName"),
                     credentials.getProperty("footballDataOrgTokenValue"));
 
             LOGGER.debug("URL: " + getUrl());
 
-            String response = getHttpExecutor()
-                    .executeGet(getUrl(), headers, "");
+            final String response = HttpExecutor.executeGet(getUrl(), headers, "");
 
             LOGGER.debug("Response: " + response);
 
-            return (JSONArray) ((JSONObject) new JSONParser()
-                    .parse(response)).get("fixtures");
+            return (JSONArray) ((JSONObject) new JSONParser().parse(response)).get("fixtures");
         } catch (Exception e) {
             LOGGER.error(e, e);
         }
         return null;
     }
 
-    protected String generateResultCode(final String target,
-                                        final Team home,
-                                        final Team away) {
-        String[] arrayOne = target.split(" ");
-        String[] arrayTwo = arrayOne[0].split("-");
-        StringBuilder builder = new StringBuilder();
-        builder.append(arrayTwo[2])
-                .append(arrayTwo[1])
-                .append(arrayTwo[0])
-                .append(home.getTeamCode())
-                .append(away.getTeamCode())
+    protected String generateResultCode(final String target, final Team home, final Team away) {
+        final String[] arrayOne = target.split(" ");
+        final String[] arrayTwo = arrayOne[0].split("-");
+        final StringBuilder builder = new StringBuilder();
+        builder.append(arrayTwo[2]).append(arrayTwo[1]).append(arrayTwo[0]).append(home.getTeamCode()).append(away.getTeamCode())
                 .append("XXXX");
         return builder.toString();
     }

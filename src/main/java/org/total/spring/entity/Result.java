@@ -4,15 +4,25 @@ import java.io.Serializable;
 import java.util.Date;
 
 public final class Result implements Serializable, Comparable<Result> {
+
     private long resultId;
+
     private Date date;
+
     private long goalsByGuest;
+
     private long goalsByHost;
+
     private long matchDay;
+
     private String resultCode;
+
     private long guestTeamId;
+
     private long hostTeamId;
+
     private long seasonId;
+
     private long tournamentId;
 
     public Result() {
@@ -110,36 +120,37 @@ public final class Result implements Serializable, Comparable<Result> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
 
         Result result = (Result) o;
 
-        if (goalsByGuest != result.goalsByGuest) return false;
-        if (goalsByHost != result.goalsByHost) return false;
-        if (guestTeamId != result.guestTeamId) return false;
-        if (hostTeamId != result.hostTeamId) return false;
-        if (matchDay != result.matchDay) return false;
-        if (seasonId != result.seasonId) return false;
-        if (tournamentId != result.tournamentId) return false;
-        if (!resultCode.equals(result.resultCode)) return false;
+        if (goalsByGuest != result.goalsByGuest)
+            return false;
+        if (goalsByHost != result.goalsByHost)
+            return false;
+        if (guestTeamId != result.guestTeamId)
+            return false;
+        if (hostTeamId != result.hostTeamId)
+            return false;
+        if (matchDay != result.matchDay)
+            return false;
+        if (seasonId != result.seasonId)
+            return false;
+        if (tournamentId != result.tournamentId)
+            return false;
+        if (!resultCode.equals(result.resultCode))
+            return false;
 
         return true;
     }
 
     @Override
     public String toString() {
-        return "Result{" +
-                "resultId=" + resultId +
-                ", date=" + date +
-                ", goalsByGuest=" + goalsByGuest +
-                ", goalsByHost=" + goalsByHost +
-                ", matchDay=" + matchDay +
-                ", resultCode='" + resultCode + '\'' +
-                ", guestTeamId=" + guestTeamId +
-                ", hostTeamId=" + hostTeamId +
-                ", seasonId=" + seasonId +
-                ", tournamentId=" + tournamentId +
-                '}';
+        return "Result{" + "resultId=" + resultId + ", date=" + date + ", goalsByGuest=" + goalsByGuest + ", goalsByHost="
+                + goalsByHost + ", matchDay=" + matchDay + ", resultCode='" + resultCode + '\'' + ", guestTeamId=" + guestTeamId
+                + ", hostTeamId=" + hostTeamId + ", seasonId=" + seasonId + ", tournamentId=" + tournamentId + '}';
     }
 }

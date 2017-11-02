@@ -9,8 +9,11 @@ import java.io.Serializable;
  */
 
 public final class Season implements Serializable {
+
     private long seasonId;
+
     private SeasonCode seasonCode;
+
     private String seasonName;
 
     public long getSeasonId() {
@@ -39,10 +42,6 @@ public final class Season implements Serializable {
 
     @Override
     public String toString() {
-        return "Season{" +
-                "seasonId=" + seasonId +
-                ", seasonCode=" + seasonCode +
-                ", seasonName='" + seasonName + '\'' +
-                '}';
+        return "Season{" + "seasonId=" + seasonId + ", seasonCode=" + seasonCode + ", seasonName='" + seasonName + '\'' + '}';
     }
 }

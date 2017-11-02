@@ -19,7 +19,6 @@ public final class PasswordManagerImpl implements PasswordManager {
 
     @Override
     public synchronized String decodeBase64(final String input) {
-        return new String(Base64.decodeBase64(input
-                .substring(input.indexOf(" ") + 1).getBytes()));
+        return new String(Base64.decodeBase64(input.substring(input.indexOf(' ') + 1).getBytes()));
     }
 }

@@ -10,6 +10,7 @@ import org.total.spring.dao.CachedStandingsDAO;
 
 @Component("cachedStandingsMaster")
 public final class CachedStandingsMaster implements Master {
+
     @Autowired
     private CachedStandingsDAO cachedStandingsDAO;
 
@@ -26,8 +27,7 @@ public final class CachedStandingsMaster implements Master {
         /*code here*/
     }
 
-    public void populateResults(final String seasonCode,
-                                final String tournamentCode) {
+    public void populateResults(final String seasonCode, final String tournamentCode) {
         getCachedStandingsDAO().saveStandings(seasonCode, tournamentCode);
     }
 }

@@ -2,6 +2,7 @@ package org.total.spring.config;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import net.sf.ehcache.config.CacheConfiguration;
+import org.apache.log4j.Logger;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.context.annotation.Bean;
@@ -14,13 +15,15 @@ import java.util.Properties;
 
 @Configuration
 public class AppConfig {
+
+    private static final Logger LOGGER = Logger.getLogger(AppConfig.class);
+
     @Bean
     public DataSource getDataSource() {
-        ComboPooledDataSource dataSource = new ComboPooledDataSource();
+        final ComboPooledDataSource dataSource = new ComboPooledDataSource();
         try {
-            Properties credentials = new Properties();
-            credentials.load(AppConfig.class.getClassLoader()
-                    .getResourceAsStream("credentials.properties"));
+            final Properties credentials = new Properties();
+            credentials.load(AppConfig.class.getClassLoader().getResourceAsStream("credentials.properties"));
 
             dataSource.setDriverClass(credentials.getProperty("mysqlDriver").trim());
             dataSource.setJdbcUrl(credentials.getProperty("mysqlUrl").trim());
@@ -32,13 +35,14 @@ public class AppConfig {
             dataSource.setAcquireIncrement(5);
             dataSource.setMaxStatements(100);
         } catch (Exception e) {
+            LOGGER.error(e, e);
         }
         return dataSource;
     }
 
     @Bean(destroyMethod = "shutdown")
     public net.sf.ehcache.CacheManager ehCacheManager() {
-        CacheConfiguration cacheConfiguration = new CacheConfiguration();
+        final CacheConfiguration cacheConfiguration = new CacheConfiguration();
         cacheConfiguration.setName("applicationCache");
 
         cacheConfiguration.setMaxEntriesLocalHeap(Constants.MAX_ENTRIES_LOCAL_HEAP);
@@ -66,8 +70,9 @@ public class AppConfig {
 
     @Bean
     public JdbcTemplate jdbcTemplate() {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+        final JdbcTemplate jdbcTemplate = new JdbcTemplate();
         jdbcTemplate.setDataSource(getDataSource());
+
         return jdbcTemplate;
     }
 }

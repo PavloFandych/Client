@@ -7,9 +7,13 @@ import java.io.Serializable;
  */
 
 public final class Team implements Serializable {
+
     private long teamId;
+
     private String teamCode;
+
     private String teamName;
+
     private long cityId;
 
     public long getTeamId() {
@@ -46,11 +50,7 @@ public final class Team implements Serializable {
 
     @Override
     public String toString() {
-        return "Team{" +
-                "teamId=" + teamId +
-                ", teamCode='" + teamCode + '\'' +
-                ", teamName='" + teamName + '\'' +
-                ", cityId=" + cityId +
-                '}';
+        return "Team{" + "teamId=" + teamId + ", teamCode='" + teamCode + '\'' + ", teamName='" + teamName + '\'' + ", cityId="
+                + cityId + '}';
     }
 }

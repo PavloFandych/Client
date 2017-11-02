@@ -10,8 +10,9 @@ import java.security.cert.X509Certificate;
  */
 
 public final class IgnoreCertificatesTrustManager implements TrustManager, X509TrustManager {
+
     public X509Certificate[] getAcceptedIssuers() {
-        return null;
+        return new X509Certificate[0];
     }
 
     public boolean isServerTrusted(X509Certificate[] certs) {

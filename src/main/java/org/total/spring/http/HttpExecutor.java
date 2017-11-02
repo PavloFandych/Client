@@ -6,8 +6,16 @@ import org.total.spring.entity.enums.HttpMethod;
 import org.total.spring.verifier.IgnoreCertificatesTrustManager;
 import org.total.spring.verifier.SSLVerifier;
 
-import javax.net.ssl.*;
-import java.io.*;
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Map;
@@ -18,28 +26,21 @@ import java.util.Map;
 
 @Component("httpExecutor")
 public final class HttpExecutor {
+
     private static final Logger LOGGER = Logger.getLogger(HttpExecutor.class);
 
     static {
-        TrustManager[] trustAllCerts = new TrustManager[]{
-                new IgnoreCertificatesTrustManager()
-        };
+        final TrustManager[] trustAllCerts = new TrustManager[] { new IgnoreCertificatesTrustManager() };
         try {
-            SSLContext sc = SSLContext.getInstance("SSL");
+            final SSLContext sc = SSLContext.getInstance("SSL");
             sc.init(null, trustAllCerts, new java.security.SecureRandom());
             HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
         } catch (Exception e) {
-
+            LOGGER.error(e, e);
         }
-        HostnameVerifier hv = new HostnameVerifier() {
-            @Override
-            public boolean verify(String urlHostName, SSLSession session) {
-                LOGGER.warn("Warning: URL Host: "
-                        .concat(urlHostName)
-                        .concat(" vs. ")
-                        .concat(String.valueOf(session.getPeerHost())));
-                return true;
-            }
+        final HostnameVerifier hv = (String urlHostName, SSLSession session) -> {
+            LOGGER.warn("Warning: URL Host: ".concat(urlHostName).concat(" vs. ").concat(String.valueOf(session.getPeerHost())));
+            return true;
         };
         try {
             SSLVerifier.trustAllHttpsCertificates();
@@ -49,19 +50,20 @@ public final class HttpExecutor {
         HttpsURLConnection.setDefaultHostnameVerifier(hv);
     }
 
-    public static String executePost(final String targetURL,
-                                     final String urlParameter,
-                                     final Map<String, String> headerParameters) throws IOException {
+    private HttpExecutor() {
+    }
 
-        URL url = new URL(targetURL);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+    public static String executePost(final String targetURL, final String urlParameter,
+            final Map<String, String> headerParameters) throws IOException {
+        final URL url = new URL(targetURL);
+        final HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod(HttpMethod.POST.name());
         for (Map.Entry<String, String> entry : headerParameters.entrySet()) {
             connection.addRequestProperty(entry.getKey(), entry.getValue());
         }
 
         connection.setDoOutput(true);
-        DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+        final DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
         wr.writeBytes(urlParameter);
         wr.flush();
         wr.close();
@@ -69,20 +71,20 @@ public final class HttpExecutor {
         connection.connect();
 
         InputStream instream = null;
-        StringBuffer stringBuffer = new StringBuffer();
+        final StringBuilder stringBuilder = new StringBuilder();
         try {
             if (connection.getResponseCode() != 200) {
                 instream = connection.getErrorStream();
             } else {
                 instream = connection.getInputStream();
             }
-            BufferedReader rd = new BufferedReader(new InputStreamReader(instream));
+            final BufferedReader rd = new BufferedReader(new InputStreamReader(instream));
             String line;
             while ((line = rd.readLine()) != null) {
-                stringBuffer.append(line);
-                stringBuffer.append('\n');
+                stringBuilder.append(line);
+                stringBuilder.append('\n');
             }
-            return stringBuffer.toString();
+            return stringBuilder.toString();
         } finally {
             if (instream != null) {
                 instream.close();
@@ -91,18 +93,16 @@ public final class HttpExecutor {
         }
     }
 
-    public static String executeGet(final String targetURL,
-                                    final Map<String, String> headerParameters,
-                                    final String urlParameter) throws IOException {
-
-        StringBuilder goalUrl = new StringBuilder(targetURL);
+    public static String executeGet(final String targetURL, final Map<String, String> headerParameters, final String urlParameter)
+            throws IOException {
+        final StringBuilder goalUrl = new StringBuilder(targetURL);
 
         if (urlParameter != null && !urlParameter.isEmpty()) {
             goalUrl.append(urlParameter);
         }
 
-        URL url = new URL(goalUrl.toString());
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        final URL url = new URL(goalUrl.toString());
+        final HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod(HttpMethod.GET.name());
 
         for (Map.Entry<String, String> entry : headerParameters.entrySet()) {
@@ -113,7 +113,7 @@ public final class HttpExecutor {
         connection.connect();
 
         InputStream instream = null;
-        StringBuffer stringBuffer = new StringBuffer();
+        final StringBuilder stringBuilder = new StringBuilder();
         try {
             if (connection.getResponseCode() != 200) {
                 instream = connection.getErrorStream();
@@ -121,13 +121,13 @@ public final class HttpExecutor {
                 instream = connection.getInputStream();
             }
 
-            BufferedReader rd = new BufferedReader(new InputStreamReader(instream));
+            final BufferedReader rd = new BufferedReader(new InputStreamReader(instream));
             String line;
             while ((line = rd.readLine()) != null) {
-                stringBuffer.append(line);
-                stringBuffer.append('\n');
+                stringBuilder.append(line);
+                stringBuilder.append('\n');
             }
-            return stringBuffer.toString();
+            return stringBuilder.toString();
         } finally {
             if (instream != null) {
                 instream.close();
@@ -136,18 +136,16 @@ public final class HttpExecutor {
         }
     }
 
-    public static String executeDelete(final String targetURL,
-                                       final Map<String, String> headerParameters,
-                                       final String urlParameter) throws IOException {
-
-        StringBuilder goalUrl = new StringBuilder(targetURL);
+    public static String executeDelete(final String targetURL, final Map<String, String> headerParameters,
+            final String urlParameter) throws IOException {
+        final StringBuilder goalUrl = new StringBuilder(targetURL);
 
         if (urlParameter != null && !urlParameter.isEmpty()) {
             goalUrl.append(urlParameter);
         }
 
-        URL url = new URL(goalUrl.toString());
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        final URL url = new URL(goalUrl.toString());
+        final HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod(HttpMethod.DELETE.name());
 
         for (Map.Entry<String, String> entry : headerParameters.entrySet()) {
@@ -158,7 +156,7 @@ public final class HttpExecutor {
         connection.connect();
 
         InputStream instream = null;
-        StringBuffer stringBuffer = new StringBuffer();
+        final StringBuilder stringBuilder = new StringBuilder();
         try {
             if (connection.getResponseCode() != 200) {
                 instream = connection.getErrorStream();
@@ -166,13 +164,13 @@ public final class HttpExecutor {
                 instream = connection.getInputStream();
             }
 
-            BufferedReader rd = new BufferedReader(new InputStreamReader(instream));
+            final BufferedReader rd = new BufferedReader(new InputStreamReader(instream));
             String line;
             while ((line = rd.readLine()) != null) {
-                stringBuffer.append(line);
-                stringBuffer.append('\n');
+                stringBuilder.append(line);
+                stringBuilder.append('\n');
             }
-            return stringBuffer.toString();
+            return stringBuilder.toString();
         } finally {
 
             if (instream != null) {
@@ -182,19 +180,17 @@ public final class HttpExecutor {
         }
     }
 
-    public static String executePut(final String targetURL,
-                                    final Map<String, String> headerParameters,
-                                    final String urlParameter) throws IOException {
-
-        URL url = new URL(targetURL);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+    public static String executePut(final String targetURL, final Map<String, String> headerParameters, final String urlParameter)
+            throws IOException {
+        final URL url = new URL(targetURL);
+        final HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod(HttpMethod.PUT.name());
         for (Map.Entry<String, String> entry : headerParameters.entrySet()) {
             connection.addRequestProperty(entry.getKey(), entry.getValue());
         }
 
         connection.setDoOutput(true);
-        DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+        final DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
         wr.writeBytes(urlParameter);
         wr.flush();
         wr.close();
@@ -202,20 +198,20 @@ public final class HttpExecutor {
         connection.connect();
 
         InputStream instream = null;
-        StringBuffer stringBuffer = new StringBuffer();
+        final StringBuilder stringBuilder = new StringBuilder();
         try {
             if (connection.getResponseCode() != 200) {
                 instream = connection.getErrorStream();
             } else {
                 instream = connection.getInputStream();
             }
-            BufferedReader rd = new BufferedReader(new InputStreamReader(instream));
+            final BufferedReader rd = new BufferedReader(new InputStreamReader(instream));
             String line;
             while ((line = rd.readLine()) != null) {
-                stringBuffer.append(line);
-                stringBuffer.append('\n');
+                stringBuilder.append(line);
+                stringBuilder.append('\n');
             }
-            return stringBuffer.toString();
+            return stringBuilder.toString();
         } finally {
             if (instream != null) {
                 instream.close();

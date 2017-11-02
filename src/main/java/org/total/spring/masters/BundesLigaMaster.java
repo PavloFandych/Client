@@ -8,7 +8,7 @@ import org.total.spring.entity.enums.SeasonCode;
 import org.total.spring.entity.enums.TournamentCode;
 import org.total.spring.finder.DataFinder;
 
-import java.util.TreeSet;
+import java.util.SortedSet;
 
 /**
  * Created by total on 11/23/16.
@@ -16,6 +16,7 @@ import java.util.TreeSet;
 
 @Component("bundesLigaMaster")
 public final class BundesLigaMaster implements Master {
+
     @Autowired
     private DataFinder dataFinderBundesLiga1;
 
@@ -40,8 +41,7 @@ public final class BundesLigaMaster implements Master {
 
     @Override
     public void populateResults() {
-        TreeSet<Result> savedResults = getResultDAO()
-                .results();
+        final SortedSet<Result> savedResults = getResultDAO().results();
         for (Result item : getDataFinderBundesLiga1().findResults()) {
             if (!savedResults.contains(item)) {
                 getResultDAO().insertResult(item);
@@ -50,12 +50,10 @@ public final class BundesLigaMaster implements Master {
     }
 
     public void populateResults(final SeasonCode seasonCode) {
-        TreeSet<Result> savedResults = getResultDAO()
+        final SortedSet<Result> savedResults = getResultDAO()
                 .findResultsBySeasonCodeAndTournamentCode(seasonCode, TournamentCode.DEU_BUNDESLIGA_1);
-        for (Result item : getDataFinderBundesLiga1().findResults()) {
-            if (!savedResults.contains(item)) {
-                getResultDAO().insertResult(item);
-            }
-        }
+
+        getDataFinderBundesLiga1().findResults().stream().filter(result -> !savedResults.contains(result))
+                .forEach(result -> getResultDAO().insertResult(result));
     }
 }

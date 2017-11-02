@@ -14,7 +14,13 @@ import org.total.spring.entity.enums.TournamentCode;
 import org.total.spring.util.Constants;
 
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Properties;
 
 /**
  * Created by pavlo.fandych on 11/29/2016.
@@ -22,6 +28,7 @@ import java.util.*;
 
 @Repository("dataFinderFrenchLigue1")
 public final class DataFinderFrenchLigue1 extends DataFinder {
+
     @Autowired
     private FrenchTeamDAO frenchTeamDAO;
 
@@ -47,14 +54,11 @@ public final class DataFinderFrenchLigue1 extends DataFinder {
     @Override
     protected final String getUrl() {
         try {
-            Properties credentials = new Properties();
-            credentials.load(DataFinderFrenchLigue1.class.getClassLoader()
-                    .getResourceAsStream("credentials.properties"));
+            final Properties credentials = new Properties();
+            credentials.load(DataFinderFrenchLigue1.class.getClassLoader().getResourceAsStream("credentials.properties"));
 
-            String api = credentials.getProperty("apiFRA_LIGUE_1");
-            return Protocol.HTTP.name()
-                    .concat(Constants.PROTOCOL_SEPARATOR)
-                    .concat(api);
+            final String api = credentials.getProperty("apiFRA_LIGUE_1");
+            return Protocol.HTTP.name().concat(Constants.PROTOCOL_SEPARATOR).concat(api);
         } catch (Exception e) {
             LOGGER.error(e, e);
         }
@@ -63,40 +67,32 @@ public final class DataFinderFrenchLigue1 extends DataFinder {
 
     @Override
     public List<Result> findResults() {
-        List<Result> results = new ArrayList<>();
+        final List<Result> results = new ArrayList<>();
         try {
-            JSONArray fixtures = getFixtures();
+            final JSONArray fixtures = getFixtures();
             if (fixtures == null) {
-                return null;
+                return Collections.emptyList();
             }
 
-            Iterator<JSONObject> iterator = fixtures.iterator();
+            final Iterator<JSONObject> iterator = fixtures.iterator();
 
-            Tournament tournament = getTournamentDAO()
-                    .fetchTournamentByTournamentCode(TournamentCode.FRA_LIGUE_1.name());
+            final Tournament tournament = getTournamentDAO().fetchTournamentByTournamentCode(TournamentCode.FRA_LIGUE_1.name());
 
             while (iterator.hasNext()) {
-                JSONObject item = iterator.next();
-                JSONObject result = (JSONObject) item.get("result");
+                final JSONObject item = iterator.next();
+                final JSONObject result = (JSONObject) item.get("result");
 
-                Team homeTeam = getFrenchTeamDAO()
-                        .findByTeamName((String) item.get(Constants.HOME_TEAM_NAME));
-                Team awayTeam = getFrenchTeamDAO()
-                        .findByTeamName((String) item.get(Constants.AWAY_TEAM_NAME));
+                final Team homeTeam = getFrenchTeamDAO().findByTeamName((String) item.get(Constants.HOME_TEAM_NAME));
+                final Team awayTeam = getFrenchTeamDAO().findByTeamName((String) item.get(Constants.AWAY_TEAM_NAME));
 
-                if (item.get("date") != null
-                        && result.get(Constants.GOALS_HOME_TEAM) != null
-                        && result.get(Constants.GOALS_AWAY_TEAM) != null
-                        && item.get(Constants.MATCH_DAY) != null
-                        && homeTeam != null
-                        && awayTeam != null
-                        && item.get("status").equals(Constants.MATCH_STATUS_FINISHED)
+                if (item.get("date") != null && result.get(Constants.GOALS_HOME_TEAM) != null
+                        && result.get(Constants.GOALS_AWAY_TEAM) != null && item.get(Constants.MATCH_DAY) != null
+                        && homeTeam != null && awayTeam != null && item.get("status").equals(Constants.MATCH_STATUS_FINISHED)
                         && tournament != null) {
-                    String dateString = ((String) item.get("date")).replace('T', ' ');
-                    Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
-                            Locale.ENGLISH).parse(dateString);
+                    final String dateString = ((String) item.get("date")).replace('T', ' ');
+                    final Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH).parse(dateString);
                     if (getSeasonMapper().mapSeason(date) > 0) {
-                        Result targetResult = new Result();
+                        final Result targetResult = new Result();
                         targetResult.setDate(date);
                         targetResult.setGoalsByGuest((long) result.get(Constants.GOALS_AWAY_TEAM));
                         targetResult.setGoalsByHost((long) result.get(Constants.GOALS_HOME_TEAM));

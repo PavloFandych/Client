@@ -8,7 +8,7 @@ import org.total.spring.entity.enums.SeasonCode;
 import org.total.spring.entity.enums.TournamentCode;
 import org.total.spring.finder.DataFinder;
 
-import java.util.TreeSet;
+import java.util.SortedSet;
 
 /**
  * Created by pavlo.fandych on 11/29/2016.
@@ -16,6 +16,7 @@ import java.util.TreeSet;
 
 @Component("laLigaMaster")
 public final class LaLigaMaster implements Master {
+
     @Autowired
     private DataFinder dataFinderSpainPrimera;
 
@@ -40,8 +41,7 @@ public final class LaLigaMaster implements Master {
 
     @Override
     public void populateResults() {
-        TreeSet<Result> savedResults = getResultDAO()
-                .results();
+        final SortedSet<Result> savedResults = getResultDAO().results();
         for (Result item : getDataFinderSpainPrimera().findResults()) {
             if (!savedResults.contains(item)) {
                 getResultDAO().insertResult(item);
@@ -50,12 +50,10 @@ public final class LaLigaMaster implements Master {
     }
 
     public void populateResults(final SeasonCode seasonCode) {
-        TreeSet<Result> savedResults = getResultDAO()
+        final SortedSet<Result> savedResults = getResultDAO()
                 .findResultsBySeasonCodeAndTournamentCode(seasonCode, TournamentCode.ESP_PRIMERA);
-        for (Result item : getDataFinderSpainPrimera().findResults()) {
-            if (!savedResults.contains(item)) {
-                getResultDAO().insertResult(item);
-            }
-        }
+
+        getDataFinderSpainPrimera().findResults().stream().filter(result -> !savedResults.contains(result))
+                .forEach(result -> getResultDAO().insertResult(result));
     }
 }
