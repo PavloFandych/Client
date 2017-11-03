@@ -54,6 +54,6 @@ public final class PrimeiraLigaMaster implements Master {
                 .findResultsBySeasonCodeAndTournamentCode(seasonCode, TournamentCode.PRT_PRIMEIRA_LIGA);
 
         getDataFinderPortugalPrimeiraLiga().findResults().stream().filter(result -> !savedResults.contains(result))
-                .forEach(result -> getResultDAO().insertResult(result));
+                .forEach(getResultDAO()::insertResult);
     }
 }

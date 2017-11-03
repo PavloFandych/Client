@@ -54,6 +54,6 @@ public final class LaLigaMaster implements Master {
                 .findResultsBySeasonCodeAndTournamentCode(seasonCode, TournamentCode.ESP_PRIMERA);
 
         getDataFinderSpainPrimera().findResults().stream().filter(result -> !savedResults.contains(result))
-                .forEach(result -> getResultDAO().insertResult(result));
+                .forEach(getResultDAO()::insertResult);
     }
 }

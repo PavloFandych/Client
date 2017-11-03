@@ -54,6 +54,6 @@ public final class PremierLeagueMaster implements Master {
                 .findResultsBySeasonCodeAndTournamentCode(seasonCode, TournamentCode.ENG_PREM_LEAGUE);
 
         getDataFinderEnglishPremierLeague().findResults().stream().filter(result -> !savedResults.contains(result))
-                .forEach(result -> getResultDAO().insertResult(result));
+                .forEach(getResultDAO()::insertResult);
     }
 }

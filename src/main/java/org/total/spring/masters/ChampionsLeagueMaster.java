@@ -54,6 +54,6 @@ public final class ChampionsLeagueMaster implements Master {
                 .findResultsBySeasonCodeAndTournamentCode(seasonCode, TournamentCode.CHAMPIONS_LEAGUE);
 
         getDataFinderChampionsLeague().findResults().stream().filter(result -> !savedResults.contains(result))
-                .forEach(result -> getResultDAO().insertResult(result));
+                .forEach(getResultDAO()::insertResult);
     }
 }

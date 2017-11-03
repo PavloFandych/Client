@@ -54,6 +54,6 @@ public final class SerieAMaster implements Master {
                 .findResultsBySeasonCodeAndTournamentCode(seasonCode, TournamentCode.ITA_SERIA_A);
 
         getDataFinderItalianSerieA().findResults().stream().filter(result -> !savedResults.contains(result))
-                .forEach(result -> getResultDAO().insertResult(result));
+                .forEach(getResultDAO()::insertResult);
     }
 }

@@ -54,6 +54,6 @@ public final class BundesLigaMaster implements Master {
                 .findResultsBySeasonCodeAndTournamentCode(seasonCode, TournamentCode.DEU_BUNDESLIGA_1);
 
         getDataFinderBundesLiga1().findResults().stream().filter(result -> !savedResults.contains(result))
-                .forEach(result -> getResultDAO().insertResult(result));
+                .forEach(getResultDAO()::insertResult);
     }
 }

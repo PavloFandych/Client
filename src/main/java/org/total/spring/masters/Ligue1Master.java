@@ -54,6 +54,6 @@ public final class Ligue1Master implements Master {
                 .findResultsBySeasonCodeAndTournamentCode(seasonCode, TournamentCode.FRA_LIGUE_1);
 
         getDataFinderFrenchLigue1().findResults().stream().filter(result -> !savedResults.contains(result))
-                .forEach(result -> getResultDAO().insertResult(result));
+                .forEach(getResultDAO()::insertResult);
     }
 }
