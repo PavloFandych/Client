@@ -3,7 +3,7 @@ package org.total.spring.entity;
 import java.io.Serializable;
 
 /**
- * Created by pavlo.fandych on 11/23/2016.
+ * @author Pavlo.Fandych
  */
 
 public final class Team implements Serializable {

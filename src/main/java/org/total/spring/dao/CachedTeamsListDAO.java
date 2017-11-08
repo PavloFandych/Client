@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
- * Created by total on 12/20/16.
+ * @author Pavlo.Fandych
  */
 
 @Repository("cachedTeamsListDAO")
@@ -123,7 +123,7 @@ public class CachedTeamsListDAO extends GenericDAO {
     private boolean isTeamsListExists(final Long seasonId, final Long tournamentId) {
         boolean result = false;
         int count = getJdbcTemplate()
-                .queryForObject(Constants.COUNT_CACHED_TEAMS_LIST, new Object[] { seasonId, tournamentId }, Integer.class);
+                .queryForObject(Constants.COUNT_CACHED_TEAMS_LIST, new Object[]{seasonId, tournamentId}, Integer.class);
         if (count > 0) {
             result = true;
         }

@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by total on 12/13/16.
+ * @author Pavlo.Fandych
  */
 
 @Repository("belgiumTeamDAO")

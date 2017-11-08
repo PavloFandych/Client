@@ -23,7 +23,7 @@ import java.util.Locale;
 import java.util.Properties;
 
 /**
- * Created by pavlo.fandych on 11/24/2016.
+ * @author Pavlo.Fandych
  */
 
 @Repository("dataFinderEnglishPremierLeague")

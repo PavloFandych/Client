@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by total on 12/1/16.
+ * @author Pavlo.Fandych
  */
 
 @Repository("TournamentDAO")

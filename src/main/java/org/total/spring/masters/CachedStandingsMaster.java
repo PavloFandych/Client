@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import org.total.spring.dao.CachedStandingsDAO;
 
 /**
- * Created by pavlo.fandych on 12/1/2016.
+ * @author Pavlo.Fandych
  */
 
 @Component("cachedStandingsMaster")

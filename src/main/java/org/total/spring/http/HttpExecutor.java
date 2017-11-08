@@ -21,7 +21,7 @@ import java.net.URL;
 import java.util.Map;
 
 /**
- * Created by pavlo.fandych on 3/18/2015.
+ * @author Pavlo.Fandych
  */
 
 @Component("httpExecutor")
@@ -30,7 +30,7 @@ public final class HttpExecutor {
     private static final Logger LOGGER = Logger.getLogger(HttpExecutor.class);
 
     static {
-        final TrustManager[] trustAllCerts = new TrustManager[] { new IgnoreCertificatesTrustManager() };
+        final TrustManager[] trustAllCerts = new TrustManager[]{new IgnoreCertificatesTrustManager()};
         try {
             final SSLContext sc = SSLContext.getInstance("SSL");
             sc.init(null, trustAllCerts, new java.security.SecureRandom());
@@ -54,7 +54,7 @@ public final class HttpExecutor {
     }
 
     public static String executePost(final String targetURL, final String urlParameter,
-            final Map<String, String> headerParameters) throws IOException {
+                                     final Map<String, String> headerParameters) throws IOException {
         final URL url = new URL(targetURL);
         final HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod(HttpMethod.POST.name());
@@ -137,7 +137,7 @@ public final class HttpExecutor {
     }
 
     public static String executeDelete(final String targetURL, final Map<String, String> headerParameters,
-            final String urlParameter) throws IOException {
+                                       final String urlParameter) throws IOException {
         final StringBuilder goalUrl = new StringBuilder(targetURL);
 
         if (urlParameter != null && !urlParameter.isEmpty()) {

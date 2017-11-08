@@ -5,7 +5,7 @@ import org.total.spring.entity.enums.SeasonCode;
 import java.io.Serializable;
 
 /**
- * Created by total on 11/23/16.
+ * @author Pavlo.Fandych
  */
 
 public final class Season implements Serializable {

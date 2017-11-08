@@ -6,6 +6,10 @@ import org.total.spring.entity.Team;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author Pavlo.Fandych
+ */
+
 @Repository("germanTeamDAO")
 public final class GermanTeamDAO extends GenericDAO {
 

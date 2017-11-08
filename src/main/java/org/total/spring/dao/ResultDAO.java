@@ -17,6 +17,10 @@ import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+/**
+ * @author Pavlo.Fandych
+ */
+
 @Repository("resultDAO")
 public final class ResultDAO extends GenericDAO {
 
@@ -25,7 +29,6 @@ public final class ResultDAO extends GenericDAO {
                 .withProcedureName(Constants.CALL_FETCH_ALL_RESULTS_SQL)
                 .returningResultSet("results", (resultSet, i) -> {
                     final Result result = new Result();
-
                     try {
                         result.setResultId(resultSet.getLong("resultId"));
                         result.setDate(

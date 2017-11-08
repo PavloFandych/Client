@@ -1,8 +1,9 @@
 package org.total.spring.entity.enums;
 
 /**
- * Created by kostya on 10/20/16.
+ * @author Pavlo.Fandych
  */
+
 public enum TournamentCode {
     ENG_PREM_LEAGUE,
     ENG_CHAMPIONSHIP,

@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
- * Created by pavlo.fandych on 12/1/2016.
+ * @author Pavlo.Fandych
  */
 
 @Repository("cachedStandingsDAO")
@@ -123,7 +123,7 @@ public final class CachedStandingsDAO extends GenericDAO {
     private boolean isStandingExists(final Long seasonId, final Long tournamentId) {
         boolean result = false;
         int count = getJdbcTemplate()
-                .queryForObject(Constants.COUNT_CACHED_STANDINGS, new Object[] { seasonId, tournamentId }, Integer.class);
+                .queryForObject(Constants.COUNT_CACHED_STANDINGS, new Object[]{seasonId, tournamentId}, Integer.class);
         if (count > 0) {
             result = true;
         }

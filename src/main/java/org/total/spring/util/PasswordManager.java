@@ -1,5 +1,9 @@
 package org.total.spring.util;
 
+/**
+ * @author Pavlo.Fandych
+ */
+
 public interface PasswordManager {
 
     String encodeMD5(final String password);

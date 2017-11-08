@@ -6,7 +6,7 @@ import org.total.spring.entity.enums.TournamentType;
 import java.io.Serializable;
 
 /**
- * Created by total on 12/1/16.
+ * @author Pavlo.Fandych
  */
 
 public final class Tournament implements Serializable {

@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
- * Created by total on 11/23/16.
+ * @author Pavlo.Fandych
  */
 
 @Component("seasonMapper")

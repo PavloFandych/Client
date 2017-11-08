@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import org.total.spring.dao.CachedTeamsListDAO;
 
 /**
- * Created by total on 12/20/16.
+ * @author Pavlo.Fandych
  */
 
 @Component("cachedTeamsListMaster")

@@ -3,6 +3,10 @@ package org.total.spring.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * @author Pavlo.Fandych
+ */
+
 public final class Result implements Serializable, Comparable<Result> {
 
     private long resultId;

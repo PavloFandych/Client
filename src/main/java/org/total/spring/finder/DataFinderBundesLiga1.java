@@ -23,7 +23,7 @@ import java.util.Locale;
 import java.util.Properties;
 
 /**
- * Created by total on 11/20/16.
+ * @author Pavlo.Fandych
  */
 
 @Repository("dataFinderBundesLiga1")

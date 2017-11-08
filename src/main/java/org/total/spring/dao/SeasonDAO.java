@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by total on 11/23/16.
+ * @author Pavlo.Fandych
  */
 
 @Repository("seasonDAO")

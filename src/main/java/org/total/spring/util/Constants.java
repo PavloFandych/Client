@@ -1,7 +1,7 @@
 package org.total.spring.util;
 
 /**
- * Created by pavlo.fandych on 11/22/2016.
+ * @author Pavlo.Fandych
  */
 
 public final class Constants {

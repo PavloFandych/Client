@@ -1,5 +1,9 @@
 package org.total.spring.entity.enums;
 
+/**
+ * @author Pavlo.Fandych
+ */
+
 public enum CityCode {
     NKWN,
     KYIV,

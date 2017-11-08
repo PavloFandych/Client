@@ -11,6 +11,10 @@ import org.total.spring.util.Constants;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Pavlo.Fandych
+ */
+
 public abstract class GenericDAO {
 
     protected static final Logger LOGGER = Logger.getLogger(GenericDAO.class);

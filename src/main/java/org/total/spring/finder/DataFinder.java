@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
- * Created by total on 11/2/16.
+ * @author Pavlo.Fandych
  */
 
 public abstract class DataFinder {

@@ -13,6 +13,10 @@ import org.total.spring.util.Constants;
 import javax.sql.DataSource;
 import java.util.Properties;
 
+/**
+ * @author Pavlo.Fandych
+ */
+
 @Configuration
 public class AppConfig {
 

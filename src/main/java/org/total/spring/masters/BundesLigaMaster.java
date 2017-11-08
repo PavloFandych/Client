@@ -11,7 +11,7 @@ import org.total.spring.finder.DataFinder;
 import java.util.SortedSet;
 
 /**
- * Created by total on 11/23/16.
+ * @author Pavlo.Fandych
  */
 
 @Component("bundesLigaMaster")

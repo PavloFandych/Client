@@ -1,7 +1,7 @@
 package org.total.spring.entity.enums;
 
 /**
- * Created by iurii.nesmiian on 3/25/2015.
+ * @author Pavlo.Fandych
  */
 
 public enum HttpMethod {

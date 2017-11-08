@@ -5,11 +5,24 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.total.spring.entity.enums.SeasonCode;
 import org.total.spring.entity.enums.TournamentCode;
-import org.total.spring.masters.*;
+import org.total.spring.masters.BundesLigaMaster;
+import org.total.spring.masters.CachedStandingsMaster;
+import org.total.spring.masters.CachedTeamsListMaster;
+import org.total.spring.masters.ChampionsLeagueMaster;
+import org.total.spring.masters.EredivisieMaster;
+import org.total.spring.masters.LaLigaMaster;
+import org.total.spring.masters.Ligue1Master;
+import org.total.spring.masters.PremierLeagueMaster;
+import org.total.spring.masters.PrimeiraLigaMaster;
+import org.total.spring.masters.SerieAMaster;
 import org.total.spring.util.Constants;
 
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
+
+/**
+ * @author Pavlo.Fandych
+ */
 
 /*ENG_PREM_LEAGUE DEU_BUNDESLIGA_1 ITA_SERIA_A ESP_PRIMERA FRA_LIGUE_1 NLD_EREDIVISIE PRT_PRIMEIRA_LIGA*/
 
@@ -22,7 +35,7 @@ public final class ResultsManager {
             try {
                 long start = System.nanoTime();
 
-                final String[] path = { "applicationContext.xml" };
+                final String[] path = {"applicationContext.xml"};
                 final ApplicationContext context = new ClassPathXmlApplicationContext(path);
 
                 final CachedStandingsMaster cachedStandingsMaster = (CachedStandingsMaster) context
@@ -46,65 +59,65 @@ public final class ResultsManager {
                         }
 
                         switch (code) {
-                        case DEU_BUNDESLIGA_1: {
-                            BundesLigaMaster bundesLigaMaster = ((BundesLigaMaster) context.getBean("bundesLigaMaster"));
-                            bundesLigaMaster.populateResults(SeasonCode.valueOf(seasonCode));
-                            cachedStandingsMaster.populateResults(seasonCode, TournamentCode.DEU_BUNDESLIGA_1.name());
-                            cachedTeamsListMaster.populateResults(seasonCode, TournamentCode.DEU_BUNDESLIGA_1.name());
-                            break;
-                        }
-                        case ENG_PREM_LEAGUE: {
-                            PremierLeagueMaster premierLeagueMaster = ((PremierLeagueMaster) context
-                                    .getBean("premierLeagueMaster"));
-                            premierLeagueMaster.populateResults(SeasonCode.valueOf(seasonCode));
-                            cachedStandingsMaster.populateResults(seasonCode, TournamentCode.ENG_PREM_LEAGUE.name());
-                            cachedTeamsListMaster.populateResults(seasonCode, TournamentCode.ENG_PREM_LEAGUE.name());
-                            break;
-                        }
-                        case ITA_SERIA_A: {
-                            SerieAMaster serieAMaster = ((SerieAMaster) context.getBean("serieAMaster"));
-                            serieAMaster.populateResults(SeasonCode.valueOf(seasonCode));
-                            cachedStandingsMaster.populateResults(seasonCode, TournamentCode.ITA_SERIA_A.name());
-                            cachedTeamsListMaster.populateResults(seasonCode, TournamentCode.ITA_SERIA_A.name());
-                            break;
-                        }
-                        case ESP_PRIMERA: {
-                            LaLigaMaster laLigaMaster = (LaLigaMaster) context.getBean("laLigaMaster");
-                            laLigaMaster.populateResults(SeasonCode.valueOf(seasonCode));
-                            cachedStandingsMaster.populateResults(seasonCode, TournamentCode.ESP_PRIMERA.name());
-                            cachedTeamsListMaster.populateResults(seasonCode, TournamentCode.ESP_PRIMERA.name());
-                            break;
-                        }
-                        case FRA_LIGUE_1: {
-                            Ligue1Master ligue1Master = (Ligue1Master) context.getBean("ligue1Master");
-                            ligue1Master.populateResults(SeasonCode.valueOf(seasonCode));
-                            cachedStandingsMaster.populateResults(seasonCode, TournamentCode.FRA_LIGUE_1.name());
-                            cachedTeamsListMaster.populateResults(seasonCode, TournamentCode.FRA_LIGUE_1.name());
-                            break;
-                        }
-                        case NLD_EREDIVISIE: {
-                            EredivisieMaster eredivisieMaster = (EredivisieMaster) context.getBean("eredivisieMaster");
-                            eredivisieMaster.populateResults(SeasonCode.valueOf(seasonCode));
-                            cachedStandingsMaster.populateResults(seasonCode, TournamentCode.NLD_EREDIVISIE.name());
-                            cachedTeamsListMaster.populateResults(seasonCode, TournamentCode.NLD_EREDIVISIE.name());
-                            break;
-                        }
-                        case PRT_PRIMEIRA_LIGA: {
-                            PrimeiraLigaMaster primeiraLigaMaster = (PrimeiraLigaMaster) context.getBean("primeiraLigaMaster");
-                            primeiraLigaMaster.populateResults(SeasonCode.valueOf(seasonCode));
-                            cachedStandingsMaster.populateResults(seasonCode, TournamentCode.PRT_PRIMEIRA_LIGA.name());
-                            cachedTeamsListMaster.populateResults(seasonCode, TournamentCode.PRT_PRIMEIRA_LIGA.name());
-                            break;
-                        }
-                        case CHAMPIONS_LEAGUE: {
-                            ChampionsLeagueMaster championsLeagueMaster = (ChampionsLeagueMaster) context
-                                    .getBean("championsLeagueMaster");
-                            championsLeagueMaster.populateResults(SeasonCode.valueOf(seasonCode));
-                            break;
-                        }
-                        default: {
-                            LOGGER.error(Constants.INVALID_TOURNAMENT_CODE);
-                        }
+                            case DEU_BUNDESLIGA_1: {
+                                BundesLigaMaster bundesLigaMaster = ((BundesLigaMaster) context.getBean("bundesLigaMaster"));
+                                bundesLigaMaster.populateResults(SeasonCode.valueOf(seasonCode));
+                                cachedStandingsMaster.populateResults(seasonCode, TournamentCode.DEU_BUNDESLIGA_1.name());
+                                cachedTeamsListMaster.populateResults(seasonCode, TournamentCode.DEU_BUNDESLIGA_1.name());
+                                break;
+                            }
+                            case ENG_PREM_LEAGUE: {
+                                PremierLeagueMaster premierLeagueMaster = ((PremierLeagueMaster) context
+                                        .getBean("premierLeagueMaster"));
+                                premierLeagueMaster.populateResults(SeasonCode.valueOf(seasonCode));
+                                cachedStandingsMaster.populateResults(seasonCode, TournamentCode.ENG_PREM_LEAGUE.name());
+                                cachedTeamsListMaster.populateResults(seasonCode, TournamentCode.ENG_PREM_LEAGUE.name());
+                                break;
+                            }
+                            case ITA_SERIA_A: {
+                                SerieAMaster serieAMaster = ((SerieAMaster) context.getBean("serieAMaster"));
+                                serieAMaster.populateResults(SeasonCode.valueOf(seasonCode));
+                                cachedStandingsMaster.populateResults(seasonCode, TournamentCode.ITA_SERIA_A.name());
+                                cachedTeamsListMaster.populateResults(seasonCode, TournamentCode.ITA_SERIA_A.name());
+                                break;
+                            }
+                            case ESP_PRIMERA: {
+                                LaLigaMaster laLigaMaster = (LaLigaMaster) context.getBean("laLigaMaster");
+                                laLigaMaster.populateResults(SeasonCode.valueOf(seasonCode));
+                                cachedStandingsMaster.populateResults(seasonCode, TournamentCode.ESP_PRIMERA.name());
+                                cachedTeamsListMaster.populateResults(seasonCode, TournamentCode.ESP_PRIMERA.name());
+                                break;
+                            }
+                            case FRA_LIGUE_1: {
+                                Ligue1Master ligue1Master = (Ligue1Master) context.getBean("ligue1Master");
+                                ligue1Master.populateResults(SeasonCode.valueOf(seasonCode));
+                                cachedStandingsMaster.populateResults(seasonCode, TournamentCode.FRA_LIGUE_1.name());
+                                cachedTeamsListMaster.populateResults(seasonCode, TournamentCode.FRA_LIGUE_1.name());
+                                break;
+                            }
+                            case NLD_EREDIVISIE: {
+                                EredivisieMaster eredivisieMaster = (EredivisieMaster) context.getBean("eredivisieMaster");
+                                eredivisieMaster.populateResults(SeasonCode.valueOf(seasonCode));
+                                cachedStandingsMaster.populateResults(seasonCode, TournamentCode.NLD_EREDIVISIE.name());
+                                cachedTeamsListMaster.populateResults(seasonCode, TournamentCode.NLD_EREDIVISIE.name());
+                                break;
+                            }
+                            case PRT_PRIMEIRA_LIGA: {
+                                PrimeiraLigaMaster primeiraLigaMaster = (PrimeiraLigaMaster) context.getBean("primeiraLigaMaster");
+                                primeiraLigaMaster.populateResults(SeasonCode.valueOf(seasonCode));
+                                cachedStandingsMaster.populateResults(seasonCode, TournamentCode.PRT_PRIMEIRA_LIGA.name());
+                                cachedTeamsListMaster.populateResults(seasonCode, TournamentCode.PRT_PRIMEIRA_LIGA.name());
+                                break;
+                            }
+                            case CHAMPIONS_LEAGUE: {
+                                ChampionsLeagueMaster championsLeagueMaster = (ChampionsLeagueMaster) context
+                                        .getBean("championsLeagueMaster");
+                                championsLeagueMaster.populateResults(SeasonCode.valueOf(seasonCode));
+                                break;
+                            }
+                            default: {
+                                LOGGER.error(Constants.INVALID_TOURNAMENT_CODE);
+                            }
                         }
                     }
                 }

@@ -6,7 +6,7 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
 /**
- * Created by pavlo.fandych on 3/31/2015.
+ * @author Pavlo.Fandych
  */
 
 public final class IgnoreCertificatesTrustManager implements TrustManager, X509TrustManager {

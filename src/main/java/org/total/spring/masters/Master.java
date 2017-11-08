@@ -1,7 +1,7 @@
 package org.total.spring.masters;
 
 /**
- * Created by pavlo.fandych on 11/24/2016.
+ * @author Pavlo.Fandych
  */
 
 public interface Master {
