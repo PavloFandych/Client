@@ -36,6 +36,9 @@ public final class EnglishTeamDAO extends GenericDAO {
         ENGLAND_TEAMS_MAPPING.put("Liverpool FC", "ENG030");
         ENGLAND_TEAMS_MAPPING.put("Chelsea FC", "ENG040");
         ENGLAND_TEAMS_MAPPING.put("West Ham United FC", "ENG014");
+        ENGLAND_TEAMS_MAPPING.put("Huddersfield Town", "ENG018");
+        ENGLAND_TEAMS_MAPPING.put("Brighton & Hove Albion", "ENG009");
+        ENGLAND_TEAMS_MAPPING.put("Newcastle United FC", "ENG004");
     }
 
     public static Map<String, String> getEnglandTeamsMapping() {

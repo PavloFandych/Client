@@ -36,6 +36,9 @@ public final class ItalianTeamDAO extends GenericDAO {
         ITALY_TEAMS_MAPPING.put("US Sassuolo Calcio", "ITA090");
         ITALY_TEAMS_MAPPING.put("Pescara Calcio", "ITA072");
         ITALY_TEAMS_MAPPING.put("SSC Napoli", "ITA062");
+        ITALY_TEAMS_MAPPING.put("Hellas Verona FC", "ITA047");
+        ITALY_TEAMS_MAPPING.put("SPAL Ferrara", "ITA037");
+        ITALY_TEAMS_MAPPING.put("Benevento Calcio", "ITA015");
     }
 
     public static Map<String, String> getItalyTeamsMapping() {

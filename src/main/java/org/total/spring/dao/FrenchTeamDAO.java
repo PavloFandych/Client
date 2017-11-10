@@ -36,6 +36,9 @@ public final class FrenchTeamDAO extends GenericDAO {
         FRANCE_TEAMS_MAPPING.put("Stade Rennais FC", "FRA033");
         FRANCE_TEAMS_MAPPING.put("Olympique de Marseille", "FRA005");
         FRANCE_TEAMS_MAPPING.put("Toulouse FC", "FRA026");
+        FRANCE_TEAMS_MAPPING.put("Amiens SC", "FRA034");
+        FRANCE_TEAMS_MAPPING.put("ES Troyes AC", "FRA023");
+        FRANCE_TEAMS_MAPPING.put("RC Strasbourg Alsace", "FRA032");
     }
 
     public static Map<String, String> getFranceTeamsMapping() {

@@ -36,6 +36,9 @@ public final class SpanishTeamDAO extends GenericDAO {
         SPAIN_TEAMS_MAPPING.put("CD Leganes", "ESP008");
         SPAIN_TEAMS_MAPPING.put("Valencia CF", "ESP042");
         SPAIN_TEAMS_MAPPING.put("UD Las Palmas", "ESP014");
+        SPAIN_TEAMS_MAPPING.put("Girona FC", "ESP016");
+        SPAIN_TEAMS_MAPPING.put("Getafe CF", "ESP007");
+        SPAIN_TEAMS_MAPPING.put("Levante UD", "ESP004");
     }
 
     public static Map<String, String> getSpainTeamsMapping() {

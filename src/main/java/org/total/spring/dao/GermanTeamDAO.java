@@ -36,6 +36,7 @@ public final class GermanTeamDAO extends GenericDAO {
         GERMANY_TEAMS_MAPPING.put("Red Bull Leipzig", "DEU160");
         GERMANY_TEAMS_MAPPING.put("OSV Hannover", "DEU215");
         GERMANY_TEAMS_MAPPING.put("VfB Stuttgart", "DEU219");
+        GERMANY_TEAMS_MAPPING.put("Hannover 96", "DEU058");
     }
 
     public static Map<String, String> getGermanyTeamsMapping() {
