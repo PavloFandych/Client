@@ -1,6 +1,5 @@
 package org.total.spring.dao;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -17,8 +16,6 @@ import java.util.Map;
 
 public abstract class GenericDAO {
 
-    protected static final Logger LOGGER = Logger.getLogger(GenericDAO.class);
-
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -33,8 +30,7 @@ public abstract class GenericDAO {
     protected Team findTeam(final String teamName, final Map<String, String> mapping) {
         if (mapping.containsKey(teamName)) {
             final SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(getJdbcTemplate())
-                    .withProcedureName(Constants.CALL_FETCH_TEAM_BY_TEAM_CODE)
-                    .returningResultSet("team", (resultSet, i) -> {
+                    .withProcedureName(Constants.CALL_FETCH_TEAM_BY_TEAM_CODE).returningResultSet("team", (resultSet, i) -> {
                         final Team team = new Team();
                         team.setTeamId(resultSet.getLong("teamId"));
                         team.setTeamCode(resultSet.getString("teamCode"));
@@ -44,10 +40,8 @@ public abstract class GenericDAO {
                         return team;
                     });
 
-            final Map<String, Object> out = simpleJdbcCall
-                    .execute(new MapSqlParameterSource().addValue("teamCode", mapping.get(teamName)));
-
-            final List<Team> resultList = (List<Team>) out.get("team");
+            final List<Team> resultList = (List<Team>) simpleJdbcCall
+                    .execute(new MapSqlParameterSource().addValue("teamCode", mapping.get(teamName))).get("team");
 
             return (resultList != null && !resultList.isEmpty()) ? resultList.get(0) : null;
         }

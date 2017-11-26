@@ -1,5 +1,6 @@
 package org.total.spring.dao;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Repository;
@@ -20,6 +21,8 @@ import java.util.Properties;
 
 @Repository("cachedTeamsListDAO")
 public class CachedTeamsListDAO extends GenericDAO {
+
+    private static final Logger LOGGER = Logger.getLogger(CachedTeamsListDAO.class);
 
     @Autowired
     private HttpExecutor httpExecutor;
@@ -123,7 +126,7 @@ public class CachedTeamsListDAO extends GenericDAO {
     private boolean isTeamsListExists(final Long seasonId, final Long tournamentId) {
         boolean result = false;
         int count = getJdbcTemplate()
-                .queryForObject(Constants.COUNT_CACHED_TEAMS_LIST, new Object[]{seasonId, tournamentId}, Integer.class);
+                .queryForObject(Constants.COUNT_CACHED_TEAMS_LIST, new Object[] { seasonId, tournamentId }, Integer.class);
         if (count > 0) {
             result = true;
         }
